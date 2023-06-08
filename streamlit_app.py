@@ -60,6 +60,10 @@ fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
 
 ### Maheen
+high_average = df.groupby(
+  'Job Title')['Years of Experience'].mean().reset_index()
+high_average = high_average.sort_values(by='Years of Experience',
+                                        ascending=False).head(10)
 
 fig = px.line(high_average, x='Job Title', y='Years of Experience')
 fig.update_xaxes(tickangle=90)
