@@ -143,14 +143,13 @@ for trace in fig2.data:
 for trace in fig3.data:
   combined_fig.add_trace(trace)
 
-combined_fig.update_layout(showlegend=True,
-                           xaxis_title="Years of Experience",
-                           yaxis_title="Salary",
-                           showlegend=True,
-                           legend_title="Categories",
-                           legend=dict(x=0.8,
-                                       y=0.4,
-                                       bgcolor='rgba(255, 255, 255, 0.7)'))
+combined_fig.update_layout(
+  showlegend=True,
+  xaxis_title="Years of Experience",
+  yaxis_title="Salary",
+  #showlegend=True,
+  legend_title="Categories",
+  legend=dict(x=0.8, y=0.4, bgcolor='rgba(255, 255, 255, 0.7)'))
 
 combined_fig.add_trace(
   go.Scatter(x=[None],
