@@ -29,7 +29,7 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 st.table(df.head())
 
 ## The df.info()
-st.table(pd.DataFrame(df.info()))
+st.text(pd.DataFrame(df.info()))
 
 ## The Null values - treatment
 st.text("# of nulls before removing nulls: ")
@@ -66,6 +66,10 @@ fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
 st.text("Most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree.")
 
+fig = px.histogram(df, x="Education Level", color="Gender")
+st.plotly_chart(fig)
+st.text("More males have bachelor's degrees than females, while females have more master's degrees than males. This shows that more women continue their education after their bachelor's degree. More men continue their education after their master's degree than women.")
+
 ### Maheen
 
 st.text('Maheen')
@@ -77,8 +81,10 @@ high_average = high_average.sort_values(by='Years of Experience',
 fig = px.line(high_average, x='Job Title', y='Years of Experience')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
+st.text("")
 
-
+min_value = df.groupby('Job Title')['Salary'].min().reset_index()
+min_value = min_value.sort_values(by = 'Salary', ascending= True).head(10)
 fig = px.bar(min_value, x='Job Title', y='Salary')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig) 
@@ -89,6 +95,7 @@ max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
 max_value = max_value.sort_values(by='Salary', ascending=False).head(10)
 fig = px.bar(max_value, x='Salary', y='Job Title', orientation='h')
 st.plotly_chart(fig)
+
 ### E'Sabel
 st.text("E'Sabel")
 yoe_df = df[['Age', 'Years of Experience']]
@@ -97,6 +104,14 @@ st.plotly_chart(fig)
 
 #Ethan
 import plotly.graph_objects as go
+
+softwareEngineers = df[df["Job Title"]=="Software Engineer"]
+softwareEngineersManager = df[df["Job Title"]=="Software Engineer Manager"]
+fullStackEngineer = df[df["Job Title"]=="Full Stack Engineer"]
+
+fig = px.scatter(softwareEngineers, x='Years of Experience', y='Salary', color_discrete_sequence=['red'])
+fig2 = px.scatter(softwareEngineersManager, x='Years of Experience', y='Salary', color_discrete_sequence=['blue'])
+fig3 = px.scatter(fullStackEngineer, x='Years of Experience', y='Salary', color_discrete_sequence=['green'])
 
 combined_fig = go.Figure()
 
@@ -143,7 +158,8 @@ combined_fig.add_trace(go.Scatter(
     name='Full Stack Engineers'
 ))
 
-st(combined_fig.show())
+st.plotly_chart(combined_fig)
+
 
 #SHOWING THE DATA
 #dataset Header
