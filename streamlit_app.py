@@ -110,7 +110,8 @@ st.text("")
 
 gender_df = df[['Gender','Salary']]
 fig = px.scatter_matrix(gender_df)
-st.plot
+st.plotly_chart(fig)
+st.text("")
 
 #Ethan
 import plotly.graph_objects as go
