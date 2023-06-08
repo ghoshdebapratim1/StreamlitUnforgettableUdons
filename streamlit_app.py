@@ -8,7 +8,7 @@ import pandas as pd
 #look for more information here https://docs.streamlit.io/library/cheatsheet
 
 #adding title
-st.title("Title Here")
+st.title("Something Wonderful")
 
 #adding discription to your website
 st.text('Discription')
