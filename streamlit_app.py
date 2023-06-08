@@ -30,19 +30,19 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 st.table(df.head())
 
 ## The Null values - treatment
-st.text("# of nulls before removing nulls: ")
+st.write("# of nulls before removing nulls: ")
 st.table(df.isnull().sum())
 
 df.dropna(inplace=True)
 df.reset_index(drop=True, inplace=True)
 
-st.text("# of nulls after removing nulls: ")
+st.write("# of nulls after removing nulls: ")
 st.table(df.isnull().sum())
 
 ## The Dropping Duplicated
-st.text("Amount of rows before removing duplicated: " + str(df.shape[0]))
+st.write("Amount of rows before removing duplicated: " + str(df.shape[0]))
 df.drop_duplicates(inplace=True)
-st.text("Amount of rows after removing duplicated: " + str(df.shape[0]))
+st.write("Amount of rows after removing duplicated: " + str(df.shape[0]))
 
 ## The standardisation of education level
 df['Education Level'].replace({"Bachelor's Degree": "Bachelors"}, inplace=True)
@@ -56,7 +56,7 @@ df['Education Level'].replace({"phD": "PhD"}, inplace=True)
 st.header('Section 2 : Data Viz')
 
 ### Jordyn
-st.text('Jordyn')
+st.write('Jordyn')
 fig = px.pie(df['Education Level'],
              values=df['Education Level'].value_counts().values,
              names=df['Education Level'].value_counts().index)
@@ -68,12 +68,12 @@ st.text(
 
 fig = px.histogram(df, x="Education Level", color="Gender")
 st.plotly_chart(fig)
-st.text(
+st.write(
   "More males have bachelor's degrees than females, while females have more master's degrees than males. This shows that more women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
 )
 
 ### Maheen
-st.text('Maheen')
+st.write('Maheen')
 high_average = df.groupby(
   'Job Title')['Years of Experience'].mean().reset_index()
 high_average = high_average.sort_values(by='Years of Experience',
@@ -94,25 +94,34 @@ st.plotly_chart(fig)
 st.text("")
 
 ### Brandon
-st.text('Brandon')
+st.write('Brandon')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
 max_value = max_value.sort_values(by='Salary', ascending=False).head(10)
 fig = px.bar(max_value, x='Salary', y='Job Title', orientation='h')
 st.plotly_chart(fig)
 
 ### E'Sabel
-st.text("E'Sabel")
+st.write("E'Sabel")
+st.write("Average years of experience  with age")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
-st.text("")
-
+st.write("The graph shows that individuals with higher years of experience tend to be older in age. Which illustrate higher paying salaries are people who have more years of experience in the feild")
+st.write("Gender roles affect on Salary")
 gender_df = df[['Gender', 'Salary']]
 fig = px.scatter_matrix(gender_df)
 st.plotly_chart(fig)
-st.text("")
+st.write("Men tend to have higher salaries than women which is shown in the graph. But there are other factors that are consider when having higher paying salaries are the education level. while women tend to go further into getting their degree, men are sometimes paid more than women")
+st.write("Most held Job Titles")
+fig = px.pie(df['Job Title'],
+             values=df['Job Title'].value_counts().values,
+             names=df['Job Title'].value_counts().index)
+fig.update_traces(hoverinfo='label+percent', textinfo='value')
+st.plotly_chart(fig)
+st.text("This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer")
 
 #Ethan
+st.write('Ethan')
 import plotly.graph_objects as go
 
 softwareEngineers = df[df["Job Title"] == "Software Engineer"]
