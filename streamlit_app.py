@@ -29,8 +29,6 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 ## The First 5 rows of the data
 st.table(df.head())
 
-
-
 ## The Null values - treatment
 st.text("# of nulls before removing nulls: ")
 st.table(df.isnull().sum())
@@ -84,7 +82,9 @@ high_average = high_average.sort_values(by='Years of Experience',
 fig = px.line(high_average, x='Job Title', y='Years of Experience')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
-st.text("The graph shows that higher job positions are typically held by individuals with more years of experience. The line ascends from left to right, indicating that as experience increases, so does the likelihood of occupying a higher position. For example, CEOs usually have around 25 years of experience, while Directors or Principal Engineers have approximately 20 years of experience.")
+st.write(
+  "The graph shows that higher job positions are typically held by individuals with more years of experience. The line ascends from left to right, indicating that as experience increases, so does the likelihood of occupying a higher position. For example, CEOs usually have around 25 years of experience, while Directors or Principal Engineers have approximately 20 years of experience."
+)
 
 min_value = df.groupby('Job Title')['Salary'].min().reset_index()
 min_value = min_value.sort_values(by='Salary', ascending=True).head(10)
@@ -92,7 +92,6 @@ fig = px.bar(min_value, x='Job Title', y='Salary')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
 st.text("")
-
 
 ### Brandon
 st.text('Brandon')
@@ -108,7 +107,7 @@ fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
 st.text("")
 
-gender_df = df[['Gender','Salary']]
+gender_df = df[['Gender', 'Salary']]
 fig = px.scatter_matrix(gender_df)
 st.plotly_chart(fig)
 st.text("")
@@ -145,6 +144,9 @@ for trace in fig3.data:
   combined_fig.add_trace(trace)
 
 combined_fig.update_layout(showlegend=True,
+                           xaxis_title="Years of Experience",
+                           yaxis_title="Salary",
+                           showlegend=True,
                            legend_title="Categories",
                            legend=dict(x=0.8,
                                        y=0.4,
