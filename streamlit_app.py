@@ -42,9 +42,9 @@ st.text("After removing nulls: ")
 st.table(df.isnull().sum())
 
 ## The Dropping Duplicated
-st.text("Amount of rows before removing duplicated: " + df.shape[0])
+st.text("Amount of rows before removing duplicated: " + str(df.shape[0]))
 df.drop_duplicates(inplace=True)
-st.text("Amount of rows after removing duplicated: " + df.shape[0])
+st.text("Amount of rows after removing duplicated: " + str(df.shape[0]))
 
 ## The standardisation of education level
 
