@@ -29,16 +29,16 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 st.table(df.head())
 
 ## The df.info()
-st.table(df.info())
+st.table(pd.DataFrame(df.info()))
 
 ## The Null values - treatment
-st.text("Before removing nulls: ")
+st.text("# of nulls before removing nulls: ")
 st.table(df.isnull().sum())
 
 df.dropna(inplace=True)
 df.reset_index(drop=True, inplace=True)
 
-st.text("After removing nulls: ")
+st.text("# of nulls after removing nulls: ")
 st.table(df.isnull().sum())
 
 ## The Dropping Duplicated
@@ -64,8 +64,10 @@ fig = px.pie(df['Education Level'],
              names=df['Education Level'].value_counts().index)
 fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
+st.text('Most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree.')
 
 ### Maheen
+
 st.text('Maheen')
 high_average = df.groupby(
   'Job Title')['Years of Experience'].mean().reset_index()
@@ -75,6 +77,7 @@ high_average = high_average.sort_values(by='Years of Experience',
 fig = px.line(high_average, x='Job Title', y='Years of Experience')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
+
 
 ### Brandon
 st.text('Brandon')
@@ -87,6 +90,9 @@ st.text("E'Sabel")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
+
+#Ethan
+
 
 #SHOWING THE DATA
 #dataset Header
