@@ -45,6 +45,7 @@ df.drop_duplicates(inplace=True)
 st.write("Amount of rows after removing duplicated: " + str(df.shape[0]))
 
 ## The standardisation of education level
+st.write("")
 st.write("Standardizing:")
 st.text("Bachelor's Degree and Bachelor's   =>   Bachelors")
 st.text("Master's Degree and Master's       =>   Masters")
@@ -61,6 +62,8 @@ st.header('Section 2 : Data Viz')
 ### Jordyn
 
 st.subheader('Jordyn')
+
+st.subheader("Hypothesis 1: What is the amount of employees in each education level?")
 fig = px.pie(df['Education Level'],
              values=df['Education Level'].value_counts().values,
              names=df['Education Level'].value_counts().index)
@@ -70,26 +73,27 @@ st.write(
   " This chart shows that most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree. The least populated education level is high school."
 )
 
+st.subheader("For each education level, what is the gender make-up?")
 fig = px.histogram(df, x="Education Level", color="Gender")
 st.plotly_chart(fig)
 st.write(
   "This graph shows that more males have bachelor's degrees than females, while females have more master's degrees than males. More women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
 )
 
-maxSal = df.groupby("Job Title")[["Salary"]].max().reset_index()
-maxSal = maxSal.sort_values(by="Salary", ascending=False).head(10)
-fig = px.bar(maxSal, x="Job Title", y="Salary")
+averageAge = df.groupby("Job Title")[["Age"]].mean().reset_index()
+averageAge = averageAge.sort_values(by="Age", ascending=False).head(10)
+fig = px.bar(averageAge, x="Job Title", y="Age")
 fig.update_layout(xaxis_tickangle=-90)
 st.plotly_chart(fig)
-st.write("These are the top ten job titles based on the maximum salaries of the employees. CTO, CEO, and Financial Manager are the top three titles, with each of them having a maximum salary of 250k. Senior Product Marketing Manager holds is the tenth title with a maximum salary of 200k.")
+st.write("This graph illustrates that the job titles with the highest average age are Director and CTO, both having the value 52. The average age of these ten titles range from 48 to 52.")
 
 ### Maheen
 
-st.subheader('Maheen')
+st.subheader('Hypothesis 1: Correlation bewteen Years of Experience and Job Titles')
 
-
-st.write
-("The line graph depicts the relationship between years of experience and the job title a person can hold.  The  x - axis represents job titles, while the y - axis represents years of experience.")
+st.write(
+  "The line graph depicts the relationship between years of experience and the job title a person can hold.  The  x - axis represents job titles, while the y - axis represents years of experience."
+)
 
 high_average = df.groupby(
   'Job Title')['Years of Experience'].mean().reset_index()
@@ -105,7 +109,10 @@ st.write(
 )
 
 
-st.write("The bar chart compares salary ranges across various job titles. Each bar represents a job title, with its height indicating the corresponding salary range.")
+st.subheader("Hypothesis 2: How different Job Titles will affect the Salary")
+st.write(
+  "The bar chart compares salary ranges across various job titles. Each bar represents a job title, with its height indicating the corresponding salary range."
+)
 
 min_value = df.groupby('Job Title')['Salary'].min().reset_index()
 min_value = min_value.sort_values(by='Salary', ascending=True).head(10)
@@ -113,15 +120,21 @@ fig = px.bar(min_value, x='Job Title', y='Salary')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
 
-st.write("From this graph, we can observe that certain job titles, such as sales representatives, tend to have higher salaries compared to positions like junior HR coordinators. The chart clearly demonstrates the disparity in salary ranges between different job titles. ")
+st.write(
+  "From this graph, we can observe that certain job titles, such as sales representatives, tend to have higher salaries compared to positions like junior HR coordinators. The chart clearly demonstrates the disparity in salary ranges between different job titles. "
+)
+
 
 ### Brandon
 st.subheader('Brandon')
+st.subheader('the amount of Salary depending on Job Titles')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
 max_value = max_value.sort_values(by='Salary', ascending=False).head(10)
 fig = px.bar(max_value, x='Salary', y='Job Title', orientation='h')
 st.plotly_chart(fig)
-st.write('This graph shows the correlation between the Job titles and Salaries. Through this graph we were able to perceive that jobs like CEOs and cheif technology officers were able to make the most Salaries by about 250,000 while the jobs like senior product managers had the least Salaries. by about 200,000')
+st.write(
+  'This graph shows the correlation between the Job titles and Salaries. Through this graph we were able to perceive that jobs like CEOs and cheif technology officers were able to make the most Salaries by about 250,000 while the jobs like senior product managers had the least Salaries. by about 200,000'
+)
 
 ### E'Sabel
 st.subheader("E'Sabel")
@@ -129,19 +142,26 @@ st.write("Average years of experience  with age")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
-st.write("The graph shows that individuals with higher years of experience tend to be older in age. Which illustrate higher paying salaries are people who have more years of experience in the feild")
+st.write(
+  "The graph shows that individuals with higher years of experience tend to be older in age. Which illustrate higher paying salaries are people who have more years of experience in the feild"
+)
 st.write("Gender roles affect on Salary")
 gender_df = df[['Gender', 'Salary']]
 fig = px.scatter_matrix(gender_df)
 st.plotly_chart(fig)
-st.write("Men tend to have higher salaries than women which is shown in the graph. But there are other factors that are consider when having higher paying salaries are the education level. while women tend to go further into getting their degree, men are sometimes paid more than women")
+st.write(
+  "Men tend to have higher salaries than women which is shown in the graph. But there are other factors that are consider when having higher paying salaries are the education level. while women tend to go further into getting their degree, men are sometimes paid more than women"
+)
 st.subheader("Top ten Most held Job Titles")
-fig = px.pie(df['Job Title'],
-             values=df['Job Title'].value_counts().topTen.values,
-             names=df['Job Title'].value_counts().topTen.index)
-fig.update_traces(hoverinfo='label+percent', textinfo='value')
+topTen = df["Job Title"].value_counts()[:10]
+fig = px.bar(x=topTen.index, y=topTen.values)
+fig.xlabel("Job Title")
+fig.ylabel("Number of Employies")
+fig.xticks(rotation = 90)
 st.plotly_chart(fig)
-st.write("This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer")
+st.write(
+  "This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer"
+)
 
 #Ethan
 st.subheader('Ethan')
@@ -206,7 +226,9 @@ combined_fig.add_trace(
 
 st.plotly_chart(combined_fig)
 
-st.write("We can see that there is a mostly linear increase of salary with years of experience. There also seems to be a decrease of software and full stack engineers and an increase of software engineer managers as the years of experience goes up. This could signify that at around 12 years of experience is when a lot of software and fullstack engineers start to become managers.")
+st.write(
+  "We can see that there is a mostly linear increase of salary with years of experience. There also seems to be a decrease of software and full stack engineers and an increase of software engineer managers as the years of experience goes up. This could signify that at around 12 years of experience is when a lot of software and fullstack engineers start to become managers."
+)
 
 #SHOWING THE DATA
 #dataset Header
