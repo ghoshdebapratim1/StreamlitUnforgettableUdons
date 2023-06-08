@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 #import seaborn as sns
 import matplotlib.pyplot as plt
+import io
 #import matplotlib.pyplot as plt
 #import numpy as np
 #import plotly.figure_factory as ff
@@ -29,7 +30,11 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 st.table(df.head())
 
 ## The df.info()
-st.text((df.info()))
+buffer = io.StringIO()
+df.info(buf=buffer)
+s = buffer.getvalue()
+
+st.text(s)
 
 ## The Null values - treatment
 st.text("# of nulls before removing nulls: ")
@@ -74,8 +79,13 @@ st.text(
   "More males have bachelor's degrees than females, while females have more master's degrees than males. This shows that more women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
 )
 
-### Maheen
+fig = px.bar(maxSal, x="Job Title", y="Salary", color="Gender")
+fig.update_layout(xaxis_tickangle=-90)
+st.plotly_chart(fig)
+st.text("")
 
+
+### Maheen
 st.text('Maheen')
 high_average = df.groupby(
   'Job Title')['Years of Experience'].mean().reset_index()
@@ -85,13 +95,15 @@ high_average = high_average.sort_values(by='Years of Experience',
 fig = px.line(high_average, x='Job Title', y='Years of Experience')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
-st.text("")
+st.text("The graph shows that higher job positions are typically held by individuals with more years of experience. The line ascends from left to right, indicating that as experience increases, so does the likelihood of occupying a higher position. For example, CEOs usually have around 25 years of experience, while Directors or Principal Engineers have approximately 20 years of experience.")
 
 min_value = df.groupby('Job Title')['Salary'].min().reset_index()
 min_value = min_value.sort_values(by='Salary', ascending=True).head(10)
 fig = px.bar(min_value, x='Job Title', y='Salary')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
+st.text("")
+
 
 ### Brandon
 st.text('Brandon')
@@ -105,6 +117,9 @@ st.text("E'Sabel")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
+st.text("")
+
+gender_df = df[[]]
 
 #Ethan
 import plotly.graph_objects as go
