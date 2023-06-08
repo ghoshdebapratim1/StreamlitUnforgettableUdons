@@ -64,7 +64,7 @@ fig = px.pie(df['Education Level'],
              names=df['Education Level'].value_counts().index)
 fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
-st.text('Most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree.')
+st.text("Most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree.")
 
 ### Maheen
 
@@ -79,6 +79,10 @@ fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
 
 
+fig = px.bar(min_value, x='Job Title', y='Salary')
+fig.update_xaxes(tickangle=90)
+st.plotly_chart(fig) 
+
 ### Brandon
 st.text('Brandon')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
@@ -92,7 +96,54 @@ fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
 
 #Ethan
+import plotly.graph_objects as go
 
+combined_fig = go.Figure()
+
+for trace in fig.data:
+    combined_fig.add_trace(trace)
+
+for trace in fig2.data:
+    combined_fig.add_trace(trace)
+
+for trace in fig3.data:
+    combined_fig.add_trace(trace)
+
+combined_fig.update_layout(
+    showlegend=True,
+    legend_title="Categories",
+    legend=dict(
+        x=0.8,
+        y=0.4,
+        bgcolor='rgba(255, 255, 255, 0.7)'
+    )
+)
+
+combined_fig.add_trace(go.Scatter(
+    x=[None],
+    y=[None],
+    mode='markers',
+    marker=dict(color='red'),
+    name='Software Engineers'
+))
+
+combined_fig.add_trace(go.Scatter(
+    x=[None],
+    y=[None],
+    mode='markers',
+    marker=dict(color='blue'),
+    name='Software Engineer Managers'
+))
+
+combined_fig.add_trace(go.Scatter(
+    x=[None],
+    y=[None],
+    mode='markers',
+    marker=dict(color='green'),
+    name='Full Stack Engineers'
+))
+
+st(combined_fig.show())
 
 #SHOWING THE DATA
 #dataset Header
