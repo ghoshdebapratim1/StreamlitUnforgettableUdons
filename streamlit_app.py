@@ -154,8 +154,8 @@ df['Education Level'] = df['Education Level'].replace({
   "Master's Degree": "Master's",
   "PhD": "phD"
 })
-temp_df = df[['Age', 'Salary']]
-fig = px.scatter(temp_df,x='Age',y='Salary')
+temp_df = df[['Age', 'Salary', 'Education Level']]
+fig = px.scatter(temp_df, x='Age', y='Salary', color='Education Level')
 st.plotly_chart(fig)
 st.write(
   'The scatterplot shows that there is relationship between Education level and Salary. those who completed their PhD tend to have a lighter color at a earlier age and gradually the salary from a PhD to a High School graduate. As the brightness of the dots resemble the amount of salaries we are able to depict that the amount of salaries that those who completed their PhD has a bigger salary at a young age than those who completed their masters or bachelors degreee'
@@ -165,7 +165,7 @@ st.write(
 st.subheader("E'Sabel")
 st.subheader(" Hypothesis 1: Average years of experience  with age")
 yoe_df = df[['Age', 'Years of Experience']]
-fig = px.scatter(yoe_df)
+fig = px.scatter(yoe_df, x='Age', y='Years of Experience')
 st.plotly_chart(fig)
 st.write(
   "The graph shows that individuals with higher years of experience tend to be older in age. Which illustrate higher paying salaries are people who have more years of experience in the feild"
