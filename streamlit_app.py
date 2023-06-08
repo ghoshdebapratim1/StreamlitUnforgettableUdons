@@ -30,13 +30,13 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 st.table(df.head())
 
 ## The Null values - treatment
-st.write("# of nulls before removing nulls: ")
+st.write("number of nulls before removing nulls: ")
 st.table(df.isnull().sum())
 
 df.dropna(inplace=True)
 df.reset_index(drop=True, inplace=True)
 
-st.write("# of nulls after removing nulls: ")
+st.write("number of nulls after removing nulls: ")
 st.table(df.isnull().sum())
 
 ## The Dropping Duplicated
@@ -45,6 +45,9 @@ df.drop_duplicates(inplace=True)
 st.write("Amount of rows after removing duplicated: " + str(df.shape[0]))
 
 ## The standardisation of education level
+st.write("Standardizing:")
+st.text("Bachelor's Degree and Bachelor's   =>   Bachelors")
+st.text("Master's Degree and Master's       =>   Masters")
 df['Education Level'].replace({"Bachelor's Degree": "Bachelors"}, inplace=True)
 df['Education Level'].replace({"Master's Degree": "Masters"}, inplace=True)
 df['Education Level'].replace({"Bachelor's": "Bachelors"}, inplace=True)
@@ -56,24 +59,38 @@ df['Education Level'].replace({"phD": "PhD"}, inplace=True)
 st.header('Section 2 : Data Viz')
 
 ### Jordyn
-st.write('Jordyn')
+
+st.subheader('Jordyn')
 fig = px.pie(df['Education Level'],
              values=df['Education Level'].value_counts().values,
              names=df['Education Level'].value_counts().index)
 fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
-st.text(
-  "Most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree."
+st.write(
+  " This chart shows that most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree. The least populated education level is high school."
 )
 
 fig = px.histogram(df, x="Education Level", color="Gender")
 st.plotly_chart(fig)
 st.write(
-  "More males have bachelor's degrees than females, while females have more master's degrees than males. This shows that more women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
+  "This graph shows that more males have bachelor's degrees than females, while females have more master's degrees than males. More women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
 )
 
+maxSal = df.groupby("Job Title")[["Salary"]].max().reset_index()
+maxSal = maxSal.sort_values(by="Salary", ascending=False).head(10)
+fig = px.bar(maxSal, x="Job Title", y="Salary")
+fig.update_layout(xaxis_tickangle=-90)
+st.plotly_chart(fig)
+st.write("These are the top ten job titles based on the maximum salaries of the employees. CTO, CEO, and Financial Manager are the top three titles, with each of them having a maximum salary of 250k. Senior Product Marketing Manager holds is the tenth title with a maximum salary of 200k.")
+
 ### Maheen
-st.write('Maheen')
+
+st.subheader('Maheen')
+
+
+st.write
+("The line graph depicts the relationship between years of experience and the job title a person can hold.  The  x - axis represents job titles, while the y - axis represents years of experience.")
+
 high_average = df.groupby(
   'Job Title')['Years of Experience'].mean().reset_index()
 high_average = high_average.sort_values(by='Years of Experience',
@@ -82,26 +99,32 @@ high_average = high_average.sort_values(by='Years of Experience',
 fig = px.line(high_average, x='Job Title', y='Years of Experience')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
+
 st.write(
   "The graph shows that higher job positions are typically held by individuals with more years of experience. The line ascends from left to right, indicating that as experience increases, so does the likelihood of occupying a higher position. For example, CEOs usually have around 25 years of experience, while Directors or Principal Engineers have approximately 20 years of experience."
 )
+
+
+st.write("The bar chart compares salary ranges across various job titles. Each bar represents a job title, with its height indicating the corresponding salary range.")
 
 min_value = df.groupby('Job Title')['Salary'].min().reset_index()
 min_value = min_value.sort_values(by='Salary', ascending=True).head(10)
 fig = px.bar(min_value, x='Job Title', y='Salary')
 fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
-st.text("")
+
+st.write("From this graph, we can observe that certain job titles, such as sales representatives, tend to have higher salaries compared to positions like junior HR coordinators. The chart clearly demonstrates the disparity in salary ranges between different job titles. ")
 
 ### Brandon
-st.write('Brandon')
+st.subheader('Brandon')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
 max_value = max_value.sort_values(by='Salary', ascending=False).head(10)
 fig = px.bar(max_value, x='Salary', y='Job Title', orientation='h')
 st.plotly_chart(fig)
+st.write('This graph shows the correlation between the Job titles and Salaries. Through this graph we were able to perceive that jobs like CEOs and cheif technology officers were able to make the most Salaries by about 250,000 while the jobs like senior product managers had the least Salaries. by about 200,000')
 
 ### E'Sabel
-st.write("E'Sabel")
+st.subheader("E'Sabel")
 st.write("Average years of experience  with age")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df)
@@ -112,16 +135,16 @@ gender_df = df[['Gender', 'Salary']]
 fig = px.scatter_matrix(gender_df)
 st.plotly_chart(fig)
 st.write("Men tend to have higher salaries than women which is shown in the graph. But there are other factors that are consider when having higher paying salaries are the education level. while women tend to go further into getting their degree, men are sometimes paid more than women")
-st.write("Most held Job Titles")
+st.subheader("Top ten Most held Job Titles")
 fig = px.pie(df['Job Title'],
-             values=df['Job Title'].value_counts().values,
-             names=df['Job Title'].value_counts().index)
+             values=df['Job Title'].value_counts().topTen.values,
+             names=df['Job Title'].value_counts().topTen.index)
 fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
-st.text("This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer")
+st.write("This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer")
 
 #Ethan
-st.write('Ethan')
+st.subheader('Ethan')
 import plotly.graph_objects as go
 
 softwareEngineers = df[df["Job Title"] == "Software Engineer"]
@@ -158,7 +181,7 @@ combined_fig.update_layout(
   yaxis_title="Salary",
   #showlegend=True,
   legend_title="Categories",
-  legend=dict(x=0.8, y=0.4, bgcolor='rgba(255, 255, 255, 0.7)'))
+  legend=dict(x=0.8, y=0.3, bgcolor='rgba(255, 255, 255, 0.7)'))
 
 combined_fig.add_trace(
   go.Scatter(x=[None],
@@ -182,6 +205,8 @@ combined_fig.add_trace(
              name='Full Stack Engineers'))
 
 st.plotly_chart(combined_fig)
+
+st.write("We can see that there is a mostly linear increase of salary with years of experience. There also seems to be a decrease of software and full stack engineers and an increase of software engineer managers as the years of experience goes up. This could signify that at around 12 years of experience is when a lot of software and fullstack engineers start to become managers.")
 
 #SHOWING THE DATA
 #dataset Header
