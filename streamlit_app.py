@@ -154,7 +154,7 @@ df['Education Level'] = df['Education Level'].replace({
   "Master's Degree": "Master's",
   "PhD": "phD"
 })
-temp_df = df[['Age', 'Education Level']]
+temp_df = df[['Age', 'Salary']]
 fig = px.scatter(temp_df)
 st.plotly_chart(fig)
 st.write(
