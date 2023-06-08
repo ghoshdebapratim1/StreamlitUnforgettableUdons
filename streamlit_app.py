@@ -6,7 +6,7 @@ import pandas as pd
 #import plotly.figure_factory as ff
 
 #look for more information here https://docs.streamlit.io/library/cheatsheet
-
+df = pd.read_csv("Salary_Data.csv")
 #Title 
 st.title("Saucy Salaries")
 
@@ -22,14 +22,13 @@ st.text('Description')
 ## The First 5 rows of the data
 df.head()
 ## The df.info()
-
+df.info()
 ## The Null values - treatment 
 
 ## The Dropping Duplicated 
 
 ## The standardisation of education level 
 st.header('Section 1 : Dataset Inspection and Cleaning')
-df = pd.read_csv("Salary_Data.csv")
 
 #showing dataset
 st.table(df.head())
