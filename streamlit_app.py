@@ -29,7 +29,7 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 st.table(df.head())
 
 ## The df.info()
-st.text(pd.DataFrame(df.info()))
+st.text((df.info()))
 
 ## The Null values - treatment
 st.text("# of nulls before removing nulls: ")
@@ -64,11 +64,15 @@ fig = px.pie(df['Education Level'],
              names=df['Education Level'].value_counts().index)
 fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
-st.text("Most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree.")
+st.text(
+  "Most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree."
+)
 
 fig = px.histogram(df, x="Education Level", color="Gender")
 st.plotly_chart(fig)
-st.text("More males have bachelor's degrees than females, while females have more master's degrees than males. This shows that more women continue their education after their bachelor's degree. More men continue their education after their master's degree than women.")
+st.text(
+  "More males have bachelor's degrees than females, while females have more master's degrees than males. This shows that more women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
+)
 
 ### Maheen
 
@@ -84,10 +88,10 @@ st.plotly_chart(fig)
 st.text("")
 
 min_value = df.groupby('Job Title')['Salary'].min().reset_index()
-min_value = min_value.sort_values(by = 'Salary', ascending= True).head(10)
+min_value = min_value.sort_values(by='Salary', ascending=True).head(10)
 fig = px.bar(min_value, x='Job Title', y='Salary')
 fig.update_xaxes(tickangle=90)
-st.plotly_chart(fig) 
+st.plotly_chart(fig)
 
 ### Brandon
 st.text('Brandon')
@@ -105,61 +109,62 @@ st.plotly_chart(fig)
 #Ethan
 import plotly.graph_objects as go
 
-softwareEngineers = df[df["Job Title"]=="Software Engineer"]
-softwareEngineersManager = df[df["Job Title"]=="Software Engineer Manager"]
-fullStackEngineer = df[df["Job Title"]=="Full Stack Engineer"]
+softwareEngineers = df[df["Job Title"] == "Software Engineer"]
+softwareEngineersManager = df[df["Job Title"] == "Software Engineer Manager"]
+fullStackEngineer = df[df["Job Title"] == "Full Stack Engineer"]
 
-fig = px.scatter(softwareEngineers, x='Years of Experience', y='Salary', color_discrete_sequence=['red'])
-fig2 = px.scatter(softwareEngineersManager, x='Years of Experience', y='Salary', color_discrete_sequence=['blue'])
-fig3 = px.scatter(fullStackEngineer, x='Years of Experience', y='Salary', color_discrete_sequence=['green'])
+fig = px.scatter(softwareEngineers,
+                 x='Years of Experience',
+                 y='Salary',
+                 color_discrete_sequence=['red'])
+fig2 = px.scatter(softwareEngineersManager,
+                  x='Years of Experience',
+                  y='Salary',
+                  color_discrete_sequence=['blue'])
+fig3 = px.scatter(fullStackEngineer,
+                  x='Years of Experience',
+                  y='Salary',
+                  color_discrete_sequence=['green'])
 
 combined_fig = go.Figure()
 
 for trace in fig.data:
-    combined_fig.add_trace(trace)
+  combined_fig.add_trace(trace)
 
 for trace in fig2.data:
-    combined_fig.add_trace(trace)
+  combined_fig.add_trace(trace)
 
 for trace in fig3.data:
-    combined_fig.add_trace(trace)
+  combined_fig.add_trace(trace)
 
-combined_fig.update_layout(
-    showlegend=True,
-    legend_title="Categories",
-    legend=dict(
-        x=0.8,
-        y=0.4,
-        bgcolor='rgba(255, 255, 255, 0.7)'
-    )
-)
+combined_fig.update_layout(showlegend=True,
+                           legend_title="Categories",
+                           legend=dict(x=0.8,
+                                       y=0.4,
+                                       bgcolor='rgba(255, 255, 255, 0.7)'))
 
-combined_fig.add_trace(go.Scatter(
-    x=[None],
-    y=[None],
-    mode='markers',
-    marker=dict(color='red'),
-    name='Software Engineers'
-))
+combined_fig.add_trace(
+  go.Scatter(x=[None],
+             y=[None],
+             mode='markers',
+             marker=dict(color='red'),
+             name='Software Engineers'))
 
-combined_fig.add_trace(go.Scatter(
-    x=[None],
-    y=[None],
-    mode='markers',
-    marker=dict(color='blue'),
-    name='Software Engineer Managers'
-))
+combined_fig.add_trace(
+  go.Scatter(x=[None],
+             y=[None],
+             mode='markers',
+             marker=dict(color='blue'),
+             name='Software Engineer Managers'))
 
-combined_fig.add_trace(go.Scatter(
-    x=[None],
-    y=[None],
-    mode='markers',
-    marker=dict(color='green'),
-    name='Full Stack Engineers'
-))
+combined_fig.add_trace(
+  go.Scatter(x=[None],
+             y=[None],
+             mode='markers',
+             marker=dict(color='green'),
+             name='Full Stack Engineers'))
 
 st.plotly_chart(combined_fig)
-
 
 #SHOWING THE DATA
 #dataset Header
