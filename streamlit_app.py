@@ -47,12 +47,18 @@ df.drop_duplicates(inplace=True)
 st.text("Amount of rows after removing duplicated: " + str(df.shape[0]))
 
 ## The standardisation of education level
+df['Education Level'].replace({"Bachelor's Degree": "Bachelors"}, inplace=True)
+df['Education Level'].replace({"Master's Degree": "Masters"}, inplace=True)
+df['Education Level'].replace({"Bachelor's": "Bachelors"}, inplace=True)
+df['Education Level'].replace({"Master's": "Masters"}, inplace=True)
+df['Education Level'].replace({"phD": "PhD"}, inplace=True)
 
 # Section 2 - Plotly Visualisation
 
 st.header('Section 2 : Data Viz')
 
 ### Jordyn
+st.text('Jordyn')
 fig = px.pie(df['Education Level'],
              values=df['Education Level'].value_counts().values,
              names=df['Education Level'].value_counts().index)
@@ -60,6 +66,7 @@ fig.update_traces(hoverinfo='label+percent', textinfo='value')
 st.plotly_chart(fig)
 
 ### Maheen
+st.text('Maheen')
 high_average = df.groupby(
   'Job Title')['Years of Experience'].mean().reset_index()
 high_average = high_average.sort_values(by='Years of Experience',
@@ -70,12 +77,13 @@ fig.update_xaxes(tickangle=90)
 st.plotly_chart(fig)
 
 ### Brandon
+st.text('Brandon')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
 max_value = max_value.sort_values(by='Salary', ascending=False).head(10)
 fig = px.bar(max_value, x='Salary', y='Job Title', orientation='h')
 st.plotly_chart(fig)
 ### E'Sabel
-
+st.text("E'Sabel")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
