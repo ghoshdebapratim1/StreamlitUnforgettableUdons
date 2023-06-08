@@ -20,7 +20,7 @@ st.text('Description')
 #Section 1 - Data Inspection and Cleaning - Ethan 
 
 ## The First 5 rows of the data
-
+df.head()
 ## The df.info()
 
 ## The Null values - treatment 
@@ -33,10 +33,23 @@ df = pd.read_csv("Salary_Data.csv")
 
 #showing dataset
 st.table(df.head())
-st.text('Showing dataset and writting about it here')
+
+
+
 # Section 2 - Plotly Visualisation 
 
+st.header('Section 2 : Data Viz')
 
+### Jordyn 
+
+
+### Maheen 
+
+
+### Brandon
+
+
+### E'Sabel 
 
 #SHOWING THE DATA
 #dataset Header
