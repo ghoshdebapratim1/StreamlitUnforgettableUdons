@@ -15,7 +15,7 @@ df = pd.read_csv("Salary_Data.csv")
 #Title
 st.title("Saucy Salaries")
 
-st.text('More precise depiction among salaries and inter&outer conditions')
+st.text('More precise depiction among salaries and inter and outer conditions.')
 
 ## Section 0
 st.header('Introductions')
@@ -60,10 +60,10 @@ df['Education Level'].replace({"phD": "PhD"}, inplace=True)
 st.header('Section 2 : Data Viz')
 
 ### Jordyn
-
 st.subheader('Jordyn')
 
-st.subheader("Hypothesis 1: What is the amount of employees in each education level?")
+st.subheader("Hypothesis 1: What is the amount of employees in each Education Level?")
+st.write("Each slice of this pie chart represents a different value.")
 fig = px.pie(df['Education Level'],
              values=df['Education Level'].value_counts().values,
              names=df['Education Level'].value_counts().index)
@@ -73,19 +73,22 @@ st.write(
   " This chart shows that most of the employees within this dataset have a bachelor's degree. The second largest amount of degree holders have a master's degree. The least populated education level is high school."
 )
 
-st.subheader("For each education level, what is the gender make-up?")
+st.subheader("Hypothesis 2: For each Education Level, what is the Gender make-up?")
+st.write("Each color on this histogram represents a different Gender.")
 fig = px.histogram(df, x="Education Level", color="Gender")
 st.plotly_chart(fig)
 st.write(
   "This graph shows that more males have bachelor's degrees than females, while females have more master's degrees than males. More women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
 )
 
+st.subheader("Hypothesis 3: What fifteen Job Titles have the highest average Age?")
+st.write("Each bar on this barplot corresponds tiwh a different Job Title.")
 averageAge = df.groupby("Job Title")[["Age"]].mean().reset_index()
-averageAge = averageAge.sort_values(by="Age", ascending=False).head(10)
+averageAge = averageAge.sort_values(by="Age", ascending=False).head(15)
 fig = px.bar(averageAge, x="Job Title", y="Age")
 fig.update_layout(xaxis_tickangle=-90)
 st.plotly_chart(fig)
-st.write("This graph illustrates that the job titles with the highest average age are Director and CTO, both having the value 52. The average age of these ten titles range from 48 to 52.")
+st.write("This graph illustrates that the job titles with the highest average age are Director and CTO, both having the value 52. The average age of these fifteen titles range from 47 to 52.")
 
 ### Maheen
 
@@ -127,14 +130,24 @@ st.write(
 
 ### Brandon
 st.subheader('Brandon')
-st.subheader('the amount of Salary depending on Job Titles')
+st.subheader('Hypothesis 1: there exisit a correlation between Salaries and Job Titles')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
 max_value = max_value.sort_values(by='Salary', ascending=False).head(10)
 fig = px.bar(max_value, x='Salary', y='Job Title', orientation='h')
 st.plotly_chart(fig)
 st.write(
-  'This graph shows the correlation between the Job titles and Salaries. Through this graph we were able to perceive that jobs like CEOs and cheif technology officers were able to make the most Salaries by about 250,000 while the jobs like senior product managers had the least Salaries. by about 200,000'
+  'This graph shows the correlation between the Job titles and Salaries. Through this graph we were able to perceive that jobs like CEOs and cheif technology officers were able to make the most Salaries by about 250,000 while the jobs like senior product managers had the least Salaries. by about 200,000.'
 )
+st.subheader('Hypothesis 2: correlation between education, age and salary')
+
+
+df['Education Level'] = df['Education Level'].replace({"Bachelor's Degree": "Bachelor's",
+                                                       "Master's Degree": "Master's",
+                                                       "PhD": "phD"})
+
+fig = px.scatter(df, x='Age', y='Education Level', color='Salary')
+
+st.write('The scatterplot shows that there is relationship between Education level and Salary. those who completed their PhD tend to have a lighter color at a earlier age and gradually the salary from a PhD to a High School graduate. As the brightness of the dots resemble the amount of salaries we are able to depict that the amount of salaries that those who completed their PhD has a lesser  ')
 
 ### E'Sabel
 st.subheader("E'Sabel")
@@ -154,10 +167,8 @@ st.write(
 )
 st.subheader("Top ten Most held Job Titles")
 topTen = df["Job Title"].value_counts()[:10]
-fig = px.bar(x=topTen.index, y=topTen.values)
-fig.xlabel("Job Title")
-fig.ylabel("Number of Employies")
-fig.xticks(rotation = 90)
+fig = px.bar(df, x=topTen.index, y=topTen.values, orientation='h')
+fig.update_layout(xaxis_title='Job title' , yaxis_title='Number of Employies')
 st.plotly_chart(fig)
 st.write(
   "This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer"
