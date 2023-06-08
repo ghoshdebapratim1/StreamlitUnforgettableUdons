@@ -29,12 +29,7 @@ st.header('Section 1 : Dataset Inspection and Cleaning')
 ## The First 5 rows of the data
 st.table(df.head())
 
-## The df.info()
-buffer = io.StringIO()
-df.info(buf=buffer)
-s = buffer.getvalue()
 
-st.text(s)
 
 ## The Null values - treatment
 st.text("# of nulls before removing nulls: ")
@@ -79,12 +74,6 @@ st.text(
   "More males have bachelor's degrees than females, while females have more master's degrees than males. This shows that more women continue their education after their bachelor's degree. More men continue their education after their master's degree than women."
 )
 
-fig = px.bar(maxSal, x="Job Title", y="Salary", color="Gender")
-fig.update_layout(xaxis_tickangle=-90)
-st.plotly_chart(fig)
-st.text("")
-
-
 ### Maheen
 st.text('Maheen')
 high_average = df.groupby(
@@ -119,7 +108,9 @@ fig = px.scatter(yoe_df)
 st.plotly_chart(fig)
 st.text("")
 
-gender_df = df[[]]
+gender_df = df[['Gender','Salary']]
+fig = px.scatter_matrix(gender_df)
+st.plot
 
 #Ethan
 import plotly.graph_objects as go
