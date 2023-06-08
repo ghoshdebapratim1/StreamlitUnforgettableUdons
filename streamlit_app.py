@@ -8,15 +8,16 @@ import pandas as pd
 #look for more information here https://docs.streamlit.io/library/cheatsheet
 
 #adding title
-st.title("Something Wonderful")
+st.title("Saucy Salaries")
+
+st.text('More precise depiction among salaries and inter&outer conditions')
 
 #adding discription to your website
-st.text('Discription')
+st.text('Description')
 
 #Thesis here
-st.header('Thesis')
+st.header('More precise depiction among salaries and inter&outer conditions')
 st.text('Add your Thesis here')
-
 
 #SHOWING THE DATA
 #dataset Header
@@ -28,7 +29,6 @@ BostonHousing = pd.read_csv("Salary_Data.csv")
 #showing dataset
 st.table(BostonHousing.head())
 st.text('Showing dataset and writting about it here')
-
 
 #Adding images to make your streamlit look visually better!
 st.image('pro.png')
@@ -44,7 +44,6 @@ st.text('Discription about your graph and visualizations')
 # Plot!
 #st.plotly_chart(BostonHousing, use_container_width=True)
 #st.text('Discription')
-
 
 #adding conclusions
 st.header('Conclusion')
