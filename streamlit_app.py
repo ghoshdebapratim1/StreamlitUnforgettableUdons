@@ -23,7 +23,7 @@ st.text('Add your Thesis here')
 st.header('Dataset')
 
 #add your dataset (delete dataset this is an example)
-BostonHousing = pd.read_csv("BostonHousing.csv")
+BostonHousing = pd.read_csv("Salary_Data.csv")
 
 #showing dataset
 st.table(BostonHousing.head())
