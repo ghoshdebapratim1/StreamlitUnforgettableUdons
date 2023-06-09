@@ -216,8 +216,7 @@ st.write(
 st.subheader("Hypothesis 9: Gender roles affect on Salary")
 gender_avg_salary = df.groupby('Gender')['Salary'].mean().reset_index()
 
-fig = px.Figure(
-  data=[px.Bar(x=gender_avg_salary['Gender'], y=gender_avg_salary['Salary'])])
+fig = px.Bar(x=gender_avg_salary['Gender'], y=gender_avg_salary['Salary'])
 
 fig.update_layout(title="Average Salary by Gender",
                   xaxis_title="Gender",
@@ -346,7 +345,7 @@ st.markdown(
   "Hypothesis 8 overview: In the scatterplot we are able to observe the correlation between education level like individuals with PhD have a lighter color tend to have higher salaries. While age also plays a role individuals i"
 )
 st.markdown(
-  "Hypothesis 9 overview: In the graph, w are able to perceive the correlation between sex and amount of salary. As a result, there seems to have a minor differen"
+  "Hypothesis 9 overview: In the graph, w are able to perceive the correlation between sex and amount of salary. As a result, there seems to have a minor salary difference between male and female."
 )
 
 st.markdown(
