@@ -129,7 +129,7 @@ st.write(
 
 st.subheader(
   "Hypothesis 3: What fifteen Job Titles have the highest average Age?")
-st.write("Each bar on this barplot corresponds tiwh a different Job Title.")
+st.write("Each bar on this barplot corresponds to a different Job Title.")
 averageAge = df.groupby("Job Title")[["Age"]].mean().reset_index()
 averageAge = averageAge.sort_values(by="Age", ascending=False).head(15)
 fig = px.bar(averageAge, x="Job Title", y="Age")
@@ -161,7 +161,9 @@ st.write(
   "The graph shows that higher job positions are typically held by individuals with more years of experience. The line ascends from left to right, indicating that as experience increases, so does the likelihood of occupying a higher position. For example, CEOs usually have around 25 years of experience, while Directors or Principal Engineers have approximately 20 years of experience."
 )
 
-st.subheader("Hypothesis 5: How different Job Titles will affect the Salary")
+st.subheader(
+  "Hypothesis 5: How salaries will affect different Job Titles at the lower end of the Dataset. "
+)
 st.write(
   "The bar chart compares salary ranges across various job titles. Each bar represents a job title, with its height indicating the corresponding salary range."
 )
@@ -303,7 +305,7 @@ combined_fig.add_trace(
 st.plotly_chart(combined_fig)
 
 st.write(
-  "There seems to be a decrease of software and full stack engineers and an increase of software engineer managers as the years of experience goes up. This most likely signifies that at around 12 years of experience is when a lot of software and fullstack engineers start to become managers."
+  "There seems to be a decrease of software and full stack engineers and an increase of software engineer managers as the years of experience goes up. This most likely signifies that at around 13 years of experience is when a lot of software and fullstack engineers start to become managers."
 )
 
 ## Summary
@@ -342,7 +344,7 @@ st.markdown(
 )
 
 st.markdown(
-  "Hypothesis 8 overview: In the scatterplot we are able to observe the correlation between education level like individuals with PhD have a lighter color tend to have higher salaries. While age also plays a role individuals i"
+  "Hypothesis 8 overview: In the scatterplot we are able to observe the correlation between education level like individuals with PhD have a lighter color tend to have higher salaries. While age also plays a role individuals in their early tweenties have degrees in bachelors and masters tend to have salaries ranging from 100k-150k."
 )
 st.markdown(
   "Hypothesis 9 overview: In the graph, w are able to perceive the correlation between sex and amount of salary. As a result, there seems to have a minor salary difference between male and female."
@@ -352,7 +354,9 @@ st.markdown(
   "Hypothesis 10 overview: In the graph, the number of employees on each job title seems to increase gradually from a Software Engineer Manager to a product manager"
 )
 
-st.markdown("Hypothesis 11 overview: In the graph,   there seems to have a correlation between on positions and years of experience")
+st.markdown(
+  "Hypothesis 11 overview: The graph shows a decrease of software and full stack engineers while there is a increase in software engineer managers as years of experience goes up. For example around 12 years of experience is when software and fullstack engineers become managers."
+)
 #SHOWING THE DATA
 #dataset Header
 
