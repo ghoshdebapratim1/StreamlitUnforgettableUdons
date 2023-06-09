@@ -140,7 +140,7 @@ st.write(
 )
 
 ### Maheen
-st.subheader('Maheen')
+#st.subheader('Maheen')
 st.subheader(
   'Hypothesis 4: Correlation bewteen Years of Experience and Job Titles')
 
@@ -177,7 +177,7 @@ st.write(
 )
 
 ### Brandon
-st.subheader('Brandon')
+#st.subheader('Brandon')
 st.subheader(
   'Hypothesis 6: there exisit a correlation between Salaries and Job Titles')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
@@ -205,7 +205,7 @@ st.write(
 )
 
 ### E'Sabel
-st.subheader("E'Sabel")
+#st.subheader("E'Sabel")
 st.subheader(" Hypothesis 8: Average years of experience  with age")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df, x='Age', y='Years of Experience')
@@ -236,7 +236,7 @@ st.write(
 )
 
 #Ethan
-st.subheader('Ethan')
+#st.subheader('Ethan')
 st.subheader(
   "Hypothesis 11: People can be promoted to a higher position of their job after obtaining years of experience."
 )
