@@ -216,15 +216,12 @@ st.write(
 st.subheader("Hypothesis 9: Gender roles affect on Salary")
 gender_avg_salary = df.groupby('Gender')['Salary'].mean().reset_index()
 
-fig = px.Figure(data=[
-    px.Bar(x=gender_avg_salary['Gender'], y=gender_avg_salary['Salary'])
-])
+fig = px.Figure(
+  data=[px.Bar(x=gender_avg_salary['Gender'], y=gender_avg_salary['Salary'])])
 
-fig.update_layout(
-    title="Average Salary by Gender",
-    xaxis_title="Gender",
-    yaxis_title="Average Salary"
-)
+fig.update_layout(title="Average Salary by Gender",
+                  xaxis_title="Gender",
+                  yaxis_title="Average Salary")
 
 st.plotly_chart(fig)
 st.write(
@@ -342,14 +339,18 @@ st.markdown(
 )
 
 st.markdown(
-  "Hypothesis 7 overview: This graph would show what level of education or age woule one get a certain amount of salary")
+  "Hypothesis 7 overview: This graph would show what level of education or age woule one get a certain amount of salary"
+)
 
 st.markdown(
-  "Hypothesis 8 overview: In the scatterplot we obsever the correlation between education level like individuals with PhD have a lighter color tend to have higher salaries. While age also play
+  "Hypothesis 8 overview: In the scatterplot we are able to observe the correlation between education level like individuals with PhD have a lighter color tend to have higher salaries. While age also plays a role individuals i"
 )
-st.markdown("Hypothesis 9 overview: the correlation between sex and amount of salary")
+st.markdown(
+  "Hypothesis 9 overview: In the graph, w are able to perceive the correlation between sex and amount of salary. As a result, there seems to have a minor differen"
+)
 
-st.markdown("Hypothesis 10 overview: ")
+st.markdown(
+  "Hypothesis 10 overview: the number of employees on each job title")
 #SHOWING THE DATA
 #dataset Header
 
