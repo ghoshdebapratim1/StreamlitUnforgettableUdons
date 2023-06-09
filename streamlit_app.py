@@ -24,7 +24,7 @@ st.subheader('Introductions')
 st.write(
   'Our team is called the Pixel Penguins and this is our final project. Over the course of this camp, we have gained an understanding of the programming language "Python" and used that understanding to create interactive data visualizations.'
 )
-st.write("Team Members: Brandon, Ethan, E'Sabel, Jordyn, and Maheen")
+st.write("Team Members: ")
 st.markdown("- Brandon Doh ")
 st.markdown("- Ethan Chan ")
 st.markdown("- E'Sabel Merriweather ")
@@ -35,13 +35,13 @@ st.subheader('Data Science Workflow')
 st.write('Step 1: Research and capture the data')
 st.write('Step 2: Inspect and clean the data')
 st.write('Step 3: Formulate hypothesis')
-st.write('Step')
-st.write()
+st.write('Step 4: Analyze the data through data visualizations')
+st.write('Step 5: Answer the hypothesis using the visualizations')
+st.write('Step 6: Communicate the results to others')
 
 #Section 1 - Data Inspection and Cleaning - Ethan
 
 st.header('Section 1 : Dataset Inspection and Cleaning')
-st.write('by')
 ## The First 5 rows of the data
 st.write("First 5 rows of our data set: ")
 
@@ -78,7 +78,7 @@ st.write("Amount of rows after removing duplicated: " + str(df.shape[0]))
 st.subheader("Standardizing Education Levels:")
 
 st.write(
-  "For education levels, there are cases where there is both Bachelor's Degree and Bachelor's, that both mean the same thing, but are considered different to the program as they aren't typed exaclty the same. So by standardizing, we can make sure the computer doesnt end up seperating them."
+  "In education levels, there are many cases where there is two things that mean the same thing, but are typed differently, like Bachelor's Degree and Bachelor's, they are considered different to the program. So by standardizing, we can make sure the computer doesnt end up seperating them."
 )
 st.text("")
 
@@ -87,6 +87,7 @@ st.table(df["Education Level"].value_counts())
 
 st.text("Bachelor's Degree and Bachelor's   =>   Bachelors")
 st.text("Master's Degree and Master's       =>   Masters")
+st.text("phD                                =>   PhD")
 st.text("")
 
 df['Education Level'].replace({"Bachelor's Degree": "Bachelors"}, inplace=True)
@@ -213,8 +214,18 @@ st.write(
   "The graph shows that individuals with higher years of experience tend to be older in age. Which illustrate higher paying salaries are people who have more years of experience in the feild"
 )
 st.subheader("Hypothesis 9: Gender roles affect on Salary")
-gender_df = df[['Gender', 'Salary']]
-fig = px.scatter_matrix(gender_df)
+gender_avg_salary = df.groupby('Gender')['Salary'].mean().reset_index()
+
+fig = px.Figure(data=[
+    px.Bar(x=gender_avg_salary['Gender'], y=gender_avg_salary['Salary'])
+])
+
+fig.update_layout(
+    title="Average Salary by Gender",
+    xaxis_title="Gender",
+    yaxis_title="Average Salary"
+)
+
 st.plotly_chart(fig)
 st.write(
   "Men tend to have higher salaries than women which is shown in the graph. But there are other factors that are consider when having higher paying salaries are the education level. while women tend to go further into getting their degree, men are sometimes paid more than women"
@@ -222,7 +233,7 @@ st.write(
 st.subheader("Hypothesis 10: Top ten Most held Job Titles")
 topTen = df["Job Title"].value_counts()[:10]
 fig = px.bar(df, x=topTen.values, y=topTen.index, orientation='h')
-fig.update_layout(xaxis_title='Number of Employies', yaxis_title='Job Titles')
+fig.update_layout(xaxis_title='Number of Employees', yaxis_title='Job Titles')
 st.plotly_chart(fig)
 st.write(
   "This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer"
@@ -323,15 +334,22 @@ st.markdown(
 )
 
 st.markdown(
-  "Hypothesis 5 overview: In the bar graph we see various job titles with its corresponding salary range. Observed within the graph certain job titles that are ranked higher tend to have higher salaries co"
+  "Hypothesis 5 overview: In the bar graph we see various job titles with its corresponding salary range. Observed within the graph certain job titles that are ranked higher tend to have higher salaries compared to job titles that are ranked lower."
 )
 
 st.markdown(
-  "Hypothesis 6 overview: In this graph we can get an insight of the correlation bewteen"
+  "Hypothesis 6 overview: In this graph we can get an insight of the correlation bewteen Salaries and Job Titles. We can interpet from this graph that CEOs and Cheif Technology Officers are making around 250,000 while jobs like Prfo "
 )
 
 st.markdown(
-  "Hypothesis 7 overv")
+  "Hypothesis 7 overview: This graph would show what level of education or age woule one get a certain amount of salary")
+
+st.markdown(
+  "Hypothesis 8 overview: In the scatterplot we obsever the correlation between education level like individuals with PhD have a lighter color tend to have higher salaries. While age also play
+)
+st.markdown("Hypothesis 9 overview: the correlation between sex and amount of salary")
+
+st.markdown("Hypothesis 10 overview: ")
 #SHOWING THE DATA
 #dataset Header
 
