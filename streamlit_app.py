@@ -21,40 +21,59 @@ st.write(
 ## Section 0
 st.subheader('Introductions')
 #adding discription to your website
-st.text('Description')
+st.write("Our team is called thi Pixel Penguins and this is our final project. Over the course of this camp, we have gained an understanding of python and used that understanding to create interactive data visualizations.")
+st.write("Team Members: Brandon, Ethan, E'Sabel, Jordyn, and Maheen")
 
 #Section 1 - Data Inspection and Cleaning - Ethan
 
 st.header('Section 1 : Dataset Inspection and Cleaning')
-
+st.write('by')
 ## The First 5 rows of the data
+st.write("First 5 rows of our data set: ")
+
 st.table(df.head())
 
 ## The Null values - treatment
-st.write("number of nulls before removing nulls: ")
+st.subheader("Removing Nulls: ")
+
+st.write("We need to remove any NA values as they would mess up any data visualization and other processes later.")
+
+st.write("Number of nulls before removing nulls: ")
 st.table(df.isnull().sum())
 
 df.dropna(inplace=True)
 df.reset_index(drop=True, inplace=True)
 
-st.write("number of nulls after removing nulls: ")
+st.write("Number of nulls after removing nulls: ")
 st.table(df.isnull().sum())
 
 ## The Dropping Duplicated
+st.subheader("Removing Duplicate Rows: ")
+
+st.write("In order to get cleaner data, we can remove duplicate rows.")
+
 st.write("Amount of rows before removing duplicated: " + str(df.shape[0]))
 df.drop_duplicates(inplace=True)
 st.write("Amount of rows after removing duplicated: " + str(df.shape[0]))
 
 ## The standardisation of education level
 st.write("")
-st.write("Standardizing:")
+st.subheader("Standardizing Education Levels:")
+
+st.write("Before standardization: ")
+st.table(df["Education Level"].value_counts())
+
 st.text("Bachelor's Degree and Bachelor's   =>   Bachelors")
 st.text("Master's Degree and Master's       =>   Masters")
+
 df['Education Level'].replace({"Bachelor's Degree": "Bachelors"}, inplace=True)
 df['Education Level'].replace({"Master's Degree": "Masters"}, inplace=True)
 df['Education Level'].replace({"Bachelor's": "Bachelors"}, inplace=True)
 df['Education Level'].replace({"Master's": "Masters"}, inplace=True)
 df['Education Level'].replace({"phD": "PhD"}, inplace=True)
+
+st.write("After standardization: ")
+st.table(df["Education Level"].value_counts())
 
 # Section 2 - Plotly Visualisation
 
@@ -99,7 +118,7 @@ st.write(
 ### Maheen
 st.subheader('Maheen')
 st.subheader(
-  'Hypothesis 1: Correlation bewteen Years of Experience and Job Titles')
+  'Hypothesis 4: Correlation bewteen Years of Experience and Job Titles')
 
 st.write(
   "The line graph depicts the relationship between years of experience and the job title a person can hold.  The  x - axis represents job titles, while the y - axis represents years of experience."
@@ -118,7 +137,7 @@ st.write(
   "The graph shows that higher job positions are typically held by individuals with more years of experience. The line ascends from left to right, indicating that as experience increases, so does the likelihood of occupying a higher position. For example, CEOs usually have around 25 years of experience, while Directors or Principal Engineers have approximately 20 years of experience."
 )
 
-st.subheader("Hypothesis 2: How different Job Titles will affect the Salary")
+st.subheader("Hypothesis 5: How different Job Titles will affect the Salary")
 st.write(
   "The bar chart compares salary ranges across various job titles. Each bar represents a job title, with its height indicating the corresponding salary range."
 )
@@ -136,7 +155,7 @@ st.write(
 ### Brandon
 st.subheader('Brandon')
 st.subheader(
-  'Hypothesis 1: there exisit a correlation between Salaries and Job Titles')
+  'Hypothesis 6: there exisit a correlation between Salaries and Job Titles')
 max_value = df.groupby('Job Title')[['Salary']].max().reset_index()
 
 max_value = max_value.sort_values(by='Salary', ascending=False).head(10)
@@ -147,7 +166,7 @@ st.plotly_chart(fig)
 st.write(
   'This graph shows the correlation between the Job titles and Salaries. Through this graph we were able to perceive that jobs like CEOs and cheif technology officers were able to make the most Salaries by about 250,000 while the jobs like senior product managers had the least Salaries. by about 200,000.'
 )
-st.subheader('Hypothesis 2: correlation between education, age and salary')
+st.subheader('Hypothesis 7: correlation between education, age and salary')
 
 df['Education Level'] = df['Education Level'].replace({
   "Bachelor's Degree": "Bachelor's",
@@ -163,24 +182,24 @@ st.write(
 
 ### E'Sabel
 st.subheader("E'Sabel")
-st.subheader(" Hypothesis 1: Average years of experience  with age")
+st.subheader(" Hypothesis 8: Average years of experience  with age")
 yoe_df = df[['Age', 'Years of Experience']]
 fig = px.scatter(yoe_df, x='Age', y='Years of Experience')
 st.plotly_chart(fig)
 st.write(
   "The graph shows that individuals with higher years of experience tend to be older in age. Which illustrate higher paying salaries are people who have more years of experience in the feild"
 )
-st.subheader("Hypothesis 2: Gender roles affect on Salary")
+st.subheader("Hypothesis 9: Gender roles affect on Salary")
 gender_df = df[['Gender', 'Salary']]
 fig = px.scatter_matrix(gender_df)
 st.plotly_chart(fig)
 st.write(
   "Men tend to have higher salaries than women which is shown in the graph. But there are other factors that are consider when having higher paying salaries are the education level. while women tend to go further into getting their degree, men are sometimes paid more than women"
 )
-st.subheader("Hypothesis 3: Top ten Most held Job Titles")
+st.subheader("Hypothesis 10: Top ten Most held Job Titles")
 topTen = df["Job Title"].value_counts()[:10]
-fig = px.bar(df, x=topTen.index, y=topTen.values, orientation='h')
-fig.update_layout(xaxis_title='Job title', yaxis_title='Number of Employies')
+fig = px.bar(df, x=topTen.values, y=topTen.index, orientation='h')
+fig.update_layout(xaxis_title='Number of Employies', yaxis_title='Job Titles')
 st.plotly_chart(fig)
 st.write(
   "This graph shows that most people have jobs as software engineers. While the second most held jobs are full stack engineer"
@@ -188,6 +207,9 @@ st.write(
 
 #Ethan
 st.subheader('Ethan')
+st.subheader("Hypothesis 11: People can be promoted to a higher position of their job after obtaining years of experience.")
+
+
 import plotly.graph_objects as go
 
 softwareEngineers = df[df["Job Title"] == "Software Engineer"]
@@ -250,8 +272,13 @@ combined_fig.add_trace(
 st.plotly_chart(combined_fig)
 
 st.write(
-  "We can see that there is a mostly linear increase of salary with years of experience. There also seems to be a decrease of software and full stack engineers and an increase of software engineer managers as the years of experience goes up. This could signify that at around 12 years of experience is when a lot of software and fullstack engineers start to become managers."
+  "There seems to be a decrease of software and full stack engineers and an increase of software engineer managers as the years of experience goes up. This most likely signifies that at around 12 years of experience is when a lot of software and fullstack engineers start to become managers."
 )
+
+## Summary
+st.subheader("Summary") 
+st.write('The overall goal of all of these experiments was to inspect the overall job employment flow. As the merge of AI seems to accelerate, the threat of the original jobs may seem too')
+st.markdown("Hypothesis 1 overview: This pie chart shows the number of employees within this dataset who have bachelor's and master's degree. W")
 
 #SHOWING THE DATA
 #dataset Header
