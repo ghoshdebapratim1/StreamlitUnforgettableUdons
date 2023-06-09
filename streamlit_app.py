@@ -78,7 +78,7 @@ st.write("Amount of rows after removing duplicated: " + str(df.shape[0]))
 st.subheader("Standardizing Education Levels:")
 
 st.write(
-  "In education levels, there are many cases where there is two things that mean the same thing, but are typed differently, like Bachelor's Degree and Bachelor's, they are considered different to the program. So by standardizing, we can make sure the computer doesnt end up seperating them."
+  "In education levels, there are many cases where there is two things that mean the same thing, but are typed differently, like Bachelor's Degree and Bachelor's, and are considered different to the program. So by standardizing, we can make sure the computer doesnt end up seperating them."
 )
 st.text("")
 
@@ -216,7 +216,7 @@ st.write(
 st.subheader("Hypothesis 9: Gender roles affect on Salary")
 gender_avg_salary = df.groupby('Gender')['Salary'].mean().reset_index()
 
-fig = px.Bar(x=gender_avg_salary['Gender'], y=gender_avg_salary['Salary'])
+fig = px.bar(x=gender_avg_salary['Gender'], y=gender_avg_salary['Salary'])
 
 fig.update_layout(title="Average Salary by Gender",
                   xaxis_title="Gender",
