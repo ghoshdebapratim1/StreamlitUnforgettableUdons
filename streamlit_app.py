@@ -19,7 +19,7 @@ st.write(
   'More precise depiction among salaries and inter and outer conditions.')
 
 ## Section 0
-st.header('Introductions')
+st.subheader('Introductions')
 #adding discription to your website
 st.text('Description')
 
