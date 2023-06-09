@@ -21,8 +21,22 @@ st.write(
 ## Section 0
 st.subheader('Introductions')
 #adding discription to your website
-st.write("Our team is called thi Pixel Penguins and this is our final project. Over the course of this camp, we have gained an understanding of python and used that understanding to create interactive data visualizations.")
+st.write(
+  'Our team is called the Pixel Penguins and this is our final project. Over the course of this camp, we have gained an understanding of the programming language "Python" and used that understanding to create interactive data visualizations.'
+)
 st.write("Team Members: Brandon, Ethan, E'Sabel, Jordyn, and Maheen")
+st.markdown("- Brandon Doh ")
+st.markdown("- Ethan Chan ")
+st.markdown("- E'Sabel Merriweather ")
+st.markdown("- Jordyn Russell ")
+st.markdown("- Maheen Ali ")
+
+st.subheader('Data Science Workflow')
+st.write('Step 1: Research and capture the data')
+st.write('Step 2: Inspect and clean the data')
+st.write('Step 3: Formulate hypothesis')
+st.write('Step')
+st.write()
 
 #Section 1 - Data Inspection and Cleaning - Ethan
 
@@ -36,7 +50,10 @@ st.table(df.head())
 ## The Null values - treatment
 st.subheader("Removing Nulls: ")
 
-st.write("We need to remove any NA values as they would mess up any data visualization and other processes later.")
+st.write(
+  "We need to remove any NA/missing values as they would mess up any data visualization and other processes later."
+)
+st.text("")
 
 st.write("Number of nulls before removing nulls: ")
 st.table(df.isnull().sum())
@@ -51,20 +68,26 @@ st.table(df.isnull().sum())
 st.subheader("Removing Duplicate Rows: ")
 
 st.write("In order to get cleaner data, we can remove duplicate rows.")
+st.text("")
 
 st.write("Amount of rows before removing duplicated: " + str(df.shape[0]))
 df.drop_duplicates(inplace=True)
 st.write("Amount of rows after removing duplicated: " + str(df.shape[0]))
 
 ## The standardisation of education level
-st.write("")
 st.subheader("Standardizing Education Levels:")
+
+st.write(
+  "For education levels, there are cases where there is both Bachelor's Degree and Bachelor's, that both mean the same thing, but are considered different to the program as they aren't typed exaclty the same. So by standardizing, we can make sure the computer doesnt end up seperating them."
+)
+st.text("")
 
 st.write("Before standardization: ")
 st.table(df["Education Level"].value_counts())
 
 st.text("Bachelor's Degree and Bachelor's   =>   Bachelors")
 st.text("Master's Degree and Master's       =>   Masters")
+st.text("")
 
 df['Education Level'].replace({"Bachelor's Degree": "Bachelors"}, inplace=True)
 df['Education Level'].replace({"Master's Degree": "Masters"}, inplace=True)
@@ -207,8 +230,9 @@ st.write(
 
 #Ethan
 st.subheader('Ethan')
-st.subheader("Hypothesis 11: People can be promoted to a higher position of their job after obtaining years of experience.")
-
+st.subheader(
+  "Hypothesis 11: People can be promoted to a higher position of their job after obtaining years of experience."
+)
 
 import plotly.graph_objects as go
 
@@ -276,10 +300,38 @@ st.write(
 )
 
 ## Summary
-st.subheader("Summary") 
-st.write('The overall goal of all of these experiments was to inspect the overall job employment flow. As the merge of AI seems to accelerate, the threat of the original jobs may seem too')
-st.markdown("Hypothesis 1 overview: This pie chart shows the number of employees within this dataset who have bachelor's and master's degree. W")
+st.subheader("Summary")
+st.subheader('Overall Goal of the project')
+st.write(
+  'The overall goal of this project was to inspect the overall flow job employment. Because of the fast development of AI chatbots, many professionals expect that many jobs would be replaced. To compare this clearly, we decided to analyze old datasets, and through these close inspections of old data sets, we would be able to predict the future job employment flow.'
+)
 
+st.markdown(
+  "Hypothesis 1 overview: This pie chart shows the number of employees within this dataset who have bachelor's and master's degree. Which the most held degree is bachelor's degree."
+)
+
+st.markdown(
+  "Hypothesis 2 overview: This graph shows the education levels of genders. We discover that males have more bachelor's degrees than females. While females continue their education and have more master's degrees."
+)
+
+st.markdown(
+  "Hypothesis 3 overview: This bar chart shows the 15 Job titles and their correlate age. We can conclude from the graph that employees with positions like Chief Technology Officer and Director are older in age than someone who is a Supply Chain analyst. "
+)
+
+st.markdown(
+  "Hypothesis 4 overview: this shows the relationship between years of experience and job titles through a line graph. What we understand from the graph is higher job positions are held by individuals that have more years of experience. In the graph you can see as the experience an individual has increases,so does the occupying higher positions."
+)
+
+st.markdown(
+  "Hypothesis 5 overview: In the bar graph we see various job titles with its corresponding salary range. Observed within the graph certain job titles that are ranked higher tend to have higher salaries co"
+)
+
+st.markdown(
+  "Hypothesis 6 overview: In this graph we can get an insight of the correlation bewteen"
+)
+
+st.markdown(
+  "Hypothesis 7 overv")
 #SHOWING THE DATA
 #dataset Header
 
