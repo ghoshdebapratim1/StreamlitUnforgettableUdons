@@ -101,10 +101,10 @@ st.table(df["Education Level"].value_counts())
 
 # Section 2 - Plotly Visualisation
 
-st.header('Section 2 : Data Viz')
+st.header('Section 2 : Data Analysis and Evaluating Hypothesis')
 
 ### Jordyn
-st.subheader('Jordyn')
+# st.subheader('Jordyn')
 
 st.subheader(
   "Hypothesis 1: What is the amount of employees in each Education Level?")
@@ -120,7 +120,7 @@ st.write(
 
 st.subheader(
   "Hypothesis 2: For each Education Level, what is the Gender make-up?")
-st.write("Each color on this histogram represents a different Gender.")
+st.write("Each color on this bar chart represents a different Gender.")
 fig = px.histogram(df, x="Education Level", color="Gender")
 st.plotly_chart(fig)
 st.write(
@@ -349,7 +349,10 @@ st.markdown(
 )
 
 st.markdown(
-  "Hypothesis 10 overview: the number of employees on each job title")
+  "Hypothesis 10 overview: In the graph, the number of employees on each job title seems to increase gradually from a Software Engineer Manager to a product manager"
+)
+
+st.markdown("Hypothesis 11 overview: In the graph, ")
 #SHOWING THE DATA
 #dataset Header
 
