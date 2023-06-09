@@ -352,7 +352,7 @@ st.markdown(
   "Hypothesis 10 overview: In the graph, the number of employees on each job title seems to increase gradually from a Software Engineer Manager to a product manager"
 )
 
-st.markdown("Hypothesis 11 overview: In the graph, ")
+st.markdown("Hypothesis 11 overview: In the graph,   there seems to have a correlation between on positions and years of experience")
 #SHOWING THE DATA
 #dataset Header
 
