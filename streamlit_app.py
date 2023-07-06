@@ -19,7 +19,7 @@ st.title("Music and Mental Health")
 
 ## Section 0
 st.header('Introduction')
-st.write('A data analysis on a study that compares the effects between certain music genres and mental health. The following information was derived from an extensive survey with over 700 participants, asking them about things such as their favorite music genres and how often they listen to music, as well as their self-reported effects on mental health, such as anxiety, OCD, insomnia, and depression. We further explored that relationship by creating connections between several different elements of the survey.')
+st.write('A data analysis on a study that compares the effects between certain music genres and mental health. The following information was derived from an extensive survey with over 700 participants, asking them about things such as their favorite music genres and how often they listen to music, as well as their self-reported effects on mental health, such as anxiety, OCD, insomnia, and depression. In this analysis, we further explored that relationship by creating connections between several different elements of the survey.')
 
 st.write("Team Members: ")
 st.markdown("- Devika Kurup ")
@@ -61,7 +61,12 @@ for i in miss_bpm_genre:
 ## Section 2 - Data Visualisation 
 
 st.header('Section 2 - Hypothesis or Questions to be answered from the data  ')
-## Yeojoon 
+## Yeojoon
+st.subheader('Hypothesis 1 : ')
+df_plot=(df.groupby(['Primary streaming service'])['Hours per day'].mean().reset_index())
+
+fig = px.bar(df_plot, x='Primary streaming service', y='Hours per day')
+st.plotly_chart(fig)
 
 #Music and Insomnia - Bar graph
 st.subheader('Hypothesis 1 : ')
@@ -70,6 +75,8 @@ df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
 
 fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
 st.plotly_chart(fig)
+
+st.write('The chart above explores the relationship between types of music and self-perceived levels of insomnia.On average, those who like listening to rap seem to have the lowest levels of insomnia, while those who like listening to LoFi seem to have the highest levels of insomnia.')
 
 #Music and depressions - Sunburst chart
 
@@ -129,3 +136,7 @@ st.plotly_chart(music_anxiety)
 st.subheader('Hypothesis 7 : ')
 music_OCD = px.box(df, x = 'Fav genre', y = 'OCD')
 st.plotly_chart(music_OCD)
+
+
+st.header("Conclusion")
+
