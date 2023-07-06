@@ -44,11 +44,24 @@ st.write(df.head())
 
 ## Yeojoon 
 
-
+#
 df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
 df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
 
 fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
+st.plotly_chart(fig)
+#
+df["Depression"]=df["Depression"].apply(str)
+df_combinations=(df.groupby(["Depression","Music effects","Fav genre"])
+                            .size()
+                            .reset_index()
+                            .rename(columns={0:"count"}))
+fig = px.sunburst(df,
+                  path=["Depression","Music effects","Fav genre"],
+                  title="Which genre most alleviates depression",
+                  color="Depression",
+                  height = 1000,
+                  width = 1000)
 st.plotly_chart(fig)
 
 ## Devika
@@ -64,6 +77,8 @@ hours_per_day.update_traces(xbins=dict(
     ))
 
 st.plotly_chart(hours_per_day)
+
+st.title(" This is a test ")
 
 #Favorite genre of music - Pie chart
 popular_genre = px.pie(df, names = 'Fav genre', title = 'Favorite Genre of Music')
