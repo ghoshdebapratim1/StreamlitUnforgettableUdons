@@ -43,7 +43,7 @@ st.write(df.head())
 
 
 ## Yeojoon 
-import plotly.express as px
+
 
 df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
 df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
@@ -52,6 +52,7 @@ fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
 st.plotly_chart(fig)
 
 ## Devika
+#How long people listen to music - histogram
 import math
 bin_width= 2
 nbins = math.ceil((df['Hours per day'].max() - df['Hours per day'].min()) / bin_width)
@@ -63,3 +64,18 @@ hours_per_day.update_traces(xbins=dict(
     ))
 
 st.plotly_chart(hours_per_day)
+
+#Favorite genre of music - Pie chart
+popular_genre = px.pie(df, names = 'Fav genre', title = 'Favorite Genre of Music')
+popular_genre.update_traces(pull=[0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+st.plotly_chart(popular_genre)
+
+#Hours of those who listen while working versus those who don't - bar graph
+fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = 'Hours per day of those who listen while working versus those who don''t')
+st.plotly_chart(fig)
+
+#Music and Anxiety - Heatmap
+df['Combo1'] = df['Music effects']+'-'+df['Anxiety'].apply(str)
+revised = pd.crosstab(df['Fav genre'], df['Combo1'])
+music_anxiety = px.imshow(revised, height = 800, width = 1000, title = 'Music and Anxiety')
+st.plotly_chart(music_anxiety)
