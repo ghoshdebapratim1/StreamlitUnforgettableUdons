@@ -42,7 +42,8 @@ st.write(df.head())
 #Section 1 - Data Inspection and Cleaning
 st.header('Section 1 - Data Pre Processing ')
 
-st.write("") # Yeojoon talk about removing irrelevant and how you replaced  missing values 
+st.write("Before the visualization of our data, we first removed columns that were irrelevant to our hypothesis through the utilization of the drop() function. We then checked if there were other null (non-present) values in the data by using the Isnull().sum() function, which enabled easy identification of columns with corresponding missing values. The implementation of the mode and mean functions allowed for quick replacement of the missing values per column.")
+# Yeojoon talk about removing irrelevant and how you replaced  missing values 
 ## Dropping unnecessary columns
 df = df.drop(["Timestamp","Permissions"], axis=1)
 
@@ -99,19 +100,8 @@ df_plot=(df.groupby(['Primary streaming service'])['Hours per day'].mean().reset
 fig = px.bar(df_plot, x='Primary streaming service', y='Hours per day', title = 'People''s Primary Streaming Service versus Their Hours of Music Per Day')
 st.plotly_chart(fig)
 
-#Music and Insomnia - Bar graph
-st.subheader('Hypothesis 1 : ')
-df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
-df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
-
-fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
-st.plotly_chart(fig)
-
-st.write('The chart above explores the relationship between types of music and self-perceived levels of insomnia.On average, those who like listening to rap seem to have the lowest levels of insomnia, while those who like listening to LoFi seem to have the highest levels of insomnia.')
-
-#Music and depressions - Sunburst chart
-
-st.subheader('Hypothesis 2 : ')
+#Music and Depression - Sunburst chart - 5th Chart
+st.subheader('Hypothesis 5 : ')
 df["Depression"]=df["Depression"].apply(str)
 df_combinations=(df.groupby(["Depression","Music effects","Fav genre"])
                             .size()
@@ -125,19 +115,27 @@ fig = px.sunburst(df,
                   width = 1000)
 st.plotly_chart(fig)
 
-#Music and Anxiety - Heatmap
-
+#Music and Anxiety - Heatmap - 6th Chart
 st.subheader('Hypothesis 6 : ')
 df['Combo1'] = df['Music effects']+'-'+df['Anxiety'].apply(str)
 revised = pd.crosstab(df['Fav genre'], df['Combo1'])
 music_anxiety = px.imshow(revised, height = 800, width = 1000, title = 'Music and Anxiety')
 st.plotly_chart(music_anxiety)
 
-#Music and OCD - Box plot
+#Music and Insomnia - Bar graph - 7th Chart
 st.subheader('Hypothesis 7 : ')
+df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
+df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
+
+fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
+st.plotly_chart(fig)
+
+st.write('The chart above explores the relationship between types of music and self-perceived levels of insomnia.On average, those who like listening to rap seem to have the lowest levels of insomnia, while those who like listening to LoFi seem to have the highest levels of insomnia.')
+
+#Music and OCD - Box plot - 8th Chart
+st.subheader('Hypothesis 8 : ')
 music_OCD = px.box(df, x = 'Fav genre', y = 'OCD')
 st.plotly_chart(music_OCD)
-
 
 st.header("Conclusion")
 
