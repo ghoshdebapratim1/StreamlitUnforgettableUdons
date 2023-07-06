@@ -36,3 +36,30 @@ st.markdown("- Yeojoon Hur ")
 #Section 1 - Data Inspection and Cleaning
 
 st.write(df.head())
+
+
+
+## Section 2 - Data Visualisation 
+
+
+## Yeojoon 
+import plotly.express as px
+
+df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
+df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
+
+fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
+st.plotly_chart(fig)
+
+## Devika
+import math
+bin_width= 2
+nbins = math.ceil((df['Hours per day'].max() - df['Hours per day'].min()) / bin_width)
+hours_per_day = px.histogram(df, x='Hours per day', title = 'How Long People Listen to Music')
+hours_per_day.update_traces(xbins=dict(
+        start=0.0,
+        end=24.0,
+        size=2
+    ))
+
+st.plotly_chart(hours_per_day)
