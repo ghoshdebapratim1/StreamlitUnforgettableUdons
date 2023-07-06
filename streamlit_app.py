@@ -36,21 +36,35 @@ st.markdown("- Yeojoon Hur ")
 #Section 1 - Data Inspection and Cleaning
 
 st.write(df.head())
+## Dropping unnecessary columns
+df = df.drop(["Timestamp","Permissions"], axis=1)
 
+## Replace Missing Values 
 
-
+df['Primary streaming service']=df['Primary streaming service'].fillna(df['Primary streaming service'].mode()[0])
+df['Age']=df['Age'].fillna(df['Age'].mean())## Replace Missing Values
+df['While working']=df['While working'].fillna(df['While working'].mode()[0])
+df['Instrumentalist']=df['Instrumentalist'].fillna(df['Instrumentalist'].mode()[0])
+df['Composer']=df['Composer'].fillna(df['Composer'].mode()[0])
+df['Foreign languages']=df['Foreign languages'].fillna(df['Foreign languages'].mode()[0])
+df['Music effects']=df['Music effects'].fillna(df['Music effects'].mode()[0])
+miss_bpm=df[df['BPM'].isnull()==True]
+miss_bpm_genre= list(miss_bpm['Fav genre'].unique())
+for i in miss_bpm_genre:
+  df['BPM']=df['BPM'].fillna( round(df[df['Fav genre']==i]['BPM'].mean(),0) )
 ## Section 2 - Data Visualisation 
 
 
 ## Yeojoon 
 
-#
+#Music and Insomnia - ba
 df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
 df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
 
 fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
 st.plotly_chart(fig)
-#
+
+#Music and depressions - Sunburst chart
 df["Depression"]=df["Depression"].apply(str)
 df_combinations=(df.groupby(["Depression","Music effects","Fav genre"])
                             .size()
@@ -77,8 +91,6 @@ hours_per_day.update_traces(xbins=dict(
     ))
 
 st.plotly_chart(hours_per_day)
-
-st.title(" This is a test ")
 
 #Favorite genre of music - Pie chart
 popular_genre = px.pie(df, names = 'Fav genre', title = 'Favorite Genre of Music')
