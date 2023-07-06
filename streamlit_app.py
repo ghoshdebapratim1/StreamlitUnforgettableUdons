@@ -15,16 +15,21 @@ df = pd.read_csv('mxmh_survey_results.csv')
 #Title
 st.title("Music and Mental Health")
 
-st.write('Effect of music on mental health conditions')
+
 
 ## Section 0
-st.subheader('Introductions')
-#adding discription to your website
-st.write('Some title for some dashboard ')
+st.header('Introduction')
+st.write('A data analysis on a study that compares the effects between certain music genres and mental health. The following information was derived from an extensive survey with over 700 participants, asking them about things such as their favorite music genres and how often they listen to music, as well as their self-reported effects on mental health, such as anxiety, OCD, insomnia, and depression. We further explored that relationship by creating connections between several different elements of the survey.')
+
 st.write("Team Members: ")
 st.markdown("- Devika Kurup ")
 st.markdown("- Yeojoon Hur ")
 
+
+
+st.header('First few rows of our data ')
+
+st.write(df.head())
 # st.subheader('Data Science Workflow')
 # st.write('Step 1: Research and capture the data')
 # st.write('Step 2: Inspect and clean the data')
@@ -34,8 +39,9 @@ st.markdown("- Yeojoon Hur ")
 # st.write('Step 6: Communicate the results to others')
 
 #Section 1 - Data Inspection and Cleaning
+st.header('Section 1 - Data Pre Processing ')
 
-st.write(df.head())
+st.write("") # Yeojoon talk about removing irrelevant and how you replaced  missing values 
 ## Dropping unnecessary columns
 df = df.drop(["Timestamp","Permissions"], axis=1)
 
@@ -54,10 +60,11 @@ for i in miss_bpm_genre:
   df['BPM']=df['BPM'].fillna( round(df[df['Fav genre']==i]['BPM'].mean(),0) )
 ## Section 2 - Data Visualisation 
 
-
+st.header('Section 2 - Hypothesis or Questions to be answered from the data  ')
 ## Yeojoon 
 
 #Music and Insomnia - Bar graph
+st.subheader('Hypothesis 1 : ')
 df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
 df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
 
@@ -65,6 +72,8 @@ fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
 st.plotly_chart(fig)
 
 #Music and depressions - Sunburst chart
+
+st.subheader('Hypothesis 2 : ')
 df["Depression"]=df["Depression"].apply(str)
 df_combinations=(df.groupby(["Depression","Music effects","Fav genre"])
                             .size()
@@ -80,6 +89,8 @@ st.plotly_chart(fig)
 
 ## Devika
 #How long people listen to music - histogram
+
+st.subheader('Hypothesis 3 : ')
 import math
 bin_width= 2
 nbins = math.ceil((df['Hours per day'].max() - df['Hours per day'].min()) / bin_width)
@@ -93,21 +104,28 @@ hours_per_day.update_traces(xbins=dict(
 st.plotly_chart(hours_per_day)
 
 #Favorite genre of music - Pie chart
+
+st.subheader('Hypothesis 4 : ')
 popular_genre = px.pie(df, names = 'Fav genre', title = 'Favorite Genre of Music')
 popular_genre.update_traces(pull=[0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 st.plotly_chart(popular_genre)
 
 #Hours of those who listen while working versus those who don't - bar graph
+
+st.subheader('Hypothesis 5 : ')
 df_plot = pd.DataFrame(df.groupby(['While working'])['Hours per day'].mean().reset_index())
 fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours per day of those who listen while working versus those who don't")
 st.plotly_chart(fig)
 
 #Music and Anxiety - Heatmap
+
+st.subheader('Hypothesis 6 : ')
 df['Combo1'] = df['Music effects']+'-'+df['Anxiety'].apply(str)
 revised = pd.crosstab(df['Fav genre'], df['Combo1'])
 music_anxiety = px.imshow(revised, height = 800, width = 1000, title = 'Music and Anxiety')
 st.plotly_chart(music_anxiety)
 
 #Music and OCD - Box plot
+st.subheader('Hypothesis 7 : ')
 music_OCD = px.box(df, x = 'Fav genre', y = 'OCD')
 st.plotly_chart(music_OCD)
