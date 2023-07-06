@@ -57,7 +57,7 @@ for i in miss_bpm_genre:
 
 ## Yeojoon 
 
-#Music and Insomnia - ba
+#Music and Insomnia - Bar graph
 df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
 df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
 
@@ -98,7 +98,7 @@ popular_genre.update_traces(pull=[0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 st.plotly_chart(popular_genre)
 
 #Hours of those who listen while working versus those who don't - bar graph
-fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = 'Hours per day of those who listen while working versus those who don''t')
+fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours per day of those who listen while working versus those who don't")
 st.plotly_chart(fig)
 
 #Music and Anxiety - Heatmap
