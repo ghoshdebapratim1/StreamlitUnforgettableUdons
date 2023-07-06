@@ -98,6 +98,7 @@ popular_genre.update_traces(pull=[0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 st.plotly_chart(popular_genre)
 
 #Hours of those who listen while working versus those who don't - bar graph
+df_plot = pd.DataFrame(df.groupby(['While working'])['Hours per day'].mean().reset_index())
 fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours per day of those who listen while working versus those who don't")
 st.plotly_chart(fig)
 
@@ -106,3 +107,7 @@ df['Combo1'] = df['Music effects']+'-'+df['Anxiety'].apply(str)
 revised = pd.crosstab(df['Fav genre'], df['Combo1'])
 music_anxiety = px.imshow(revised, height = 800, width = 1000, title = 'Music and Anxiety')
 st.plotly_chart(music_anxiety)
+
+#Music and OCD - Box plot
+music_OCD = px.box(df, x = 'Fav genre', y = 'OCD')
+st.plotly_chart(music_OCD)
