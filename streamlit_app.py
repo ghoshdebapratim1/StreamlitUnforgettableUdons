@@ -67,21 +67,14 @@ for i in miss_bpm_genre:
 
 st.header('Section 2 - Hypothesis or Questions to be answered from the data  ')
 
-st.subheader('Hypothesis 1 : ')
-df['isstreamer']=np.where(df['Primary streaming service']=='I do not use a streaming service.','No','Yes')
-df_plot=df.groupby(['isstreamer','Exploratory']).size().reset_index()
-df_plot.columns=['isstreamer','Exploratory','count']
-fig = px.bar(df_plot, x="Exploratory", y="count", color="isstreamer", title="Exploring Music vs Streaming")
-st.plotly_chart(fig)
-
 #Favorite Genre of Music - Pie chart - 1st Chart
-st.subheader('Hypothesis 4 : ')
+st.subheader('Hypothesis 1 : ')
 popular_genre = px.pie(df, names = 'Fav genre', title = 'Favorite Genre of Music')
 popular_genre.update_traces(pull=[0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 st.plotly_chart(popular_genre)
 
 #Hours Per Day - Histogram - 2nd Chart
-st.subheader('Hypothesis 3 : ')
+st.subheader('Hypothesis 2 : ')
 import math
 bin_width= 2
 nbins = math.ceil((df['Hours per day'].max() - df['Hours per day'].min()) / bin_width)
@@ -95,17 +88,17 @@ hours_per_day.update_traces(xbins=dict(
 st.plotly_chart(hours_per_day)
 
 #Hours of those who listen while working versus those who don't - Bar graph - 3rd Chart 
-st.subheader('Hypothesis 5 : ')
+st.subheader('Hypothesis 3 : ')
 df_plot = pd.DataFrame(df.groupby(['While working'])['Hours per day'].mean().reset_index())
-fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours per day of those who listen while working versus those who don't")
+fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours Per Day of Those Who Listen While Working Versus Those Who Don't")
 st.plotly_chart(fig)
 
 #Primary Streaming Service VS Hours Per Day - Histogram - 4th Chart
-st.subheader('Hypothesis 1 : ')
+st.subheader('Hypothesis 4 : ')
 df_plot=(df.groupby(['Primary streaming service'])['Hours per day'].mean().reset_index())
-
-fig = px.bar(df_plot, x='Primary streaming service', y='Hours per day')
+fig = px.bar(df_plot, x='Primary streaming service', y='Hours per day', title = 'People''s Primary Streaming Service versus Their Hours of Music Per Day')
 st.plotly_chart(fig)
+
 #Music and Insomnia - Bar graph
 st.subheader('Hypothesis 1 : ')
 df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
