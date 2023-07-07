@@ -95,7 +95,7 @@ st.subheader('Question 3 : Do Those Who Listen to Music While Working Listen For
 df_plot = pd.DataFrame(df.groupby(['While working'])['Hours per day'].mean().reset_index())
 fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours Per Day of Those Who Listen While Working Versus Those Who Don't")
 st.plotly_chart(fig)
-
+st.write('The last piece of background information we wanted to look at was whether or not people who listened to music while working spent more time listening to music than those who didn\'t. The graph shows that on average, the people who listened to music while working listened for about two hours more than those who don\'t.')
 #Music and Depression - Sunburst chart - 5th Chart
 st.subheader('Question 4 : Which Music Genre Best Helps With Depression?')
 df["Depression"]=df["Depression"].apply(str)
@@ -110,6 +110,7 @@ fig = px.sunburst(df,
                   height = 1000,
                   width = 1000)
 st.plotly_chart(fig)
+st.write('')
 
 #Music and Anxiety - Heatmap - 6th Chart
 st.subheader('Question 5 : Which Music Genre Best Helps With Anxiety? ')
