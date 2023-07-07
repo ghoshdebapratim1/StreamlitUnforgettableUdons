@@ -73,8 +73,8 @@ st.header('Section 2 - Hypothesis or Questions to be answered from the data  ')
 st.subheader('Question 1 : What is People\'s Favorite Genre of Music? ')
 popular_genre = px.pie(df, names = 'Fav genre', title = 'Favorite Genre of Music')
 popular_genre.update_traces(pull=[0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-
 st.plotly_chart(popular_genre)
+st.write('Before we got too far into our analysis, we wanted to get some background information about the survey and it\'s participants. We explored what the respondent\'s favorite genre is, and, as demonstrated by the graph, rock is the genre that most of the participants said was their favorite.')
 
 #Hours Per Day - Histogram - 2nd Chart
 st.subheader('Question 2 : How Long Do Most People Listen to Music Per Day? ')
@@ -87,8 +87,8 @@ hours_per_day.update_traces(xbins=dict(
         end=24.0,
         size=2
     ))
-
 st.plotly_chart(hours_per_day)
+st.write('We also wanted to see how long the respondents listen')
 
 #Hours of those who listen while working versus those who don't - Bar graph - 3rd Chart 
 st.subheader('Question 3 : Do Those Who Listen to Music While Working Listen For More Hours A Day Than Those Who Don\'t? ')
