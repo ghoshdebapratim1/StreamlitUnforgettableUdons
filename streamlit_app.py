@@ -1,6 +1,6 @@
 #import libraries
 import streamlit as st
-import pandas as pd
+import payndas as pd
 import plotly.express as px
 #import seaborn as sns
 import matplotlib.pyplot as plt
@@ -28,7 +28,8 @@ st.markdown("- Yeojoon Hur ")
 
 
 
-st.header('First few rows of our data ')
+st.header('Data Description ')
+st.write('We got our data from the "Music and Mental Health Survey" done by Cathering Rasgaitis on Kaggle. This dataset consists of 736 rows and 33 columns.')
 
 st.write(df.head())
 # st.subheader('Data Science Workflow')
@@ -69,13 +70,14 @@ for i in miss_bpm_genre:
 st.header('Section 2 - Hypothesis or Questions to be answered from the data  ')
 
 #Favorite Genre of Music - Pie chart - 1st Chart
-st.subheader('Hypothesis 1 : ')
+st.subheader('Question 1 : What is People\'s Favorite Genre of Music? ')
 popular_genre = px.pie(df, names = 'Fav genre', title = 'Favorite Genre of Music')
 popular_genre.update_traces(pull=[0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
 st.plotly_chart(popular_genre)
 
 #Hours Per Day - Histogram - 2nd Chart
-st.subheader('Hypothesis 2 : ')
+st.subheader('Question 2 : How Long Do Most People Listen to Music Per Day? ')
 import math
 bin_width= 2
 nbins = math.ceil((df['Hours per day'].max() - df['Hours per day'].min()) / bin_width)
@@ -89,15 +91,9 @@ hours_per_day.update_traces(xbins=dict(
 st.plotly_chart(hours_per_day)
 
 #Hours of those who listen while working versus those who don't - Bar graph - 3rd Chart 
-st.subheader('Hypothesis 3 : ')
+st.subheader('Question 3 : Do Those Who Listen to Music While Working Listen For More Hours A Day Than Those Who Don\'t? ')
 df_plot = pd.DataFrame(df.groupby(['While working'])['Hours per day'].mean().reset_index())
 fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours Per Day of Those Who Listen While Working Versus Those Who Don't")
-st.plotly_chart(fig)
-
-#Primary Streaming Service VS Hours Per Day - Histogram - 4th Chart
-st.subheader('Hypothesis 4 : ')
-df_plot=(df.groupby(['Primary streaming service'])['Hours per day'].mean().reset_index())
-fig = px.bar(df_plot, x='Primary streaming service', y='Hours per day', title = 'People''s Primary Streaming Service versus Their Hours of Music Per Day')
 st.plotly_chart(fig)
 
 #Music and Depression - Sunburst chart - 5th Chart
