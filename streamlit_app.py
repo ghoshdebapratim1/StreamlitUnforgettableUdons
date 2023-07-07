@@ -88,7 +88,7 @@ hours_per_day.update_traces(xbins=dict(
         size=2
     ))
 st.plotly_chart(hours_per_day)
-st.write('We also wanted to see how long the respondents listen')
+st.write('We also wanted to see how long the respondents listened to music for on any given day. As we can see from the graph, 299 people said they listen to music for anywhere from 2-4 hours a day, making them the majority.')
 
 #Hours of those who listen while working versus those who don't - Bar graph - 3rd Chart 
 st.subheader('Question 3 : Do Those Who Listen to Music While Working Listen For More Hours A Day Than Those Who Don\'t? ')
