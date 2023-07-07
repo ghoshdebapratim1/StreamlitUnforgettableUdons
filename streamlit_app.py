@@ -1,6 +1,6 @@
 #import libraries
 import streamlit as st
-import payndas as pd
+import pandas as pd
 import plotly.express as px
 #import seaborn as sns
 import matplotlib.pyplot as plt
@@ -97,7 +97,7 @@ fig = px.bar(df_plot, x = 'While working', y = 'Hours per day', title = "Hours P
 st.plotly_chart(fig)
 
 #Music and Depression - Sunburst chart - 5th Chart
-st.subheader('Hypothesis 5 : ')
+st.subheader('Question 4 : Which Music Genre Best Helps With Depression?')
 df["Depression"]=df["Depression"].apply(str)
 df_combinations=(df.groupby(["Depression","Music effects","Fav genre"])
                             .size()
@@ -105,32 +105,32 @@ df_combinations=(df.groupby(["Depression","Music effects","Fav genre"])
                             .rename(columns={0:"count"}))
 fig = px.sunburst(df,
                   path=["Depression","Music effects","Fav genre"],
-                  title="Which genre most alleviates depression",
+                  title="Music and Depression",
                   color="Depression",
                   height = 1000,
                   width = 1000)
 st.plotly_chart(fig)
 
 #Music and Anxiety - Heatmap - 6th Chart
-st.subheader('Hypothesis 6 : ')
+st.subheader('Question 5 : Which Music Genre Best Helps With Anxiety? ')
 df['Combo1'] = df['Music effects']+'-'+df['Anxiety'].apply(str)
 revised = pd.crosstab(df['Fav genre'], df['Combo1'])
 music_anxiety = px.imshow(revised, height = 800, width = 1000, title = 'Music and Anxiety')
 st.plotly_chart(music_anxiety)
 
 #Music and Insomnia - Bar graph - 7th Chart
-st.subheader('Hypothesis 7 : ')
+st.subheader('Question 6 : Which Music Genre Best Helps With Insomnia?')
 df_plot=(df.groupby(['Fav genre'])['Insomnia'].mean().reset_index())
 df_plot=df_plot.sort_values(["Insomnia"],ascending=True)
 
-fig = px.bar(df_plot, x="Fav genre", y="Insomnia")
+fig = px.bar(df_plot, x="Fav genre", y="Insomnia", title = 'Music and Insomnia')
 st.plotly_chart(fig)
 
 st.write('The chart above explores the relationship between types of music and self-perceived levels of insomnia.On average, those who like listening to rap seem to have the lowest levels of insomnia, while those who like listening to LoFi seem to have the highest levels of insomnia.')
 
 #Music and OCD - Box plot - 8th Chart
-st.subheader('Hypothesis 8 : ')
-music_OCD = px.box(df, x = 'Fav genre', y = 'OCD')
+st.subheader('Question 7 : Which Music Genre Best Helps With OCD?')
+music_OCD = px.box(df, x = 'Fav genre', y = 'OCD', title = 'Music and OCD')
 st.plotly_chart(music_OCD)
 
 st.header("Conclusion")
