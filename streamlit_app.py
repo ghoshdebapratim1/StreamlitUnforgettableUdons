@@ -144,7 +144,7 @@ result=pd.DataFrame(df_plot.groupby(['movie_title'])['gross_profit'].mean().sort
 
 result.columns=['movie_title', 'gross_profit']
 
-fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit', labels={'x':"Movie Title", 'y':"Gross Profit"})
+fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit')
 
 st.plotly_chart(fig)
 
@@ -152,7 +152,7 @@ st.subheader("Who are the most common directors in the film industry?")
 df_plot=df['director_name'].value_counts()[0:10].reset_index()
 df_plot.columns=['director_name', 'count']
 
-fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors", labels={'x':"Director Name", 'y':"Count"})
+fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors")
 
 st.plotly_chart(fig)
 
