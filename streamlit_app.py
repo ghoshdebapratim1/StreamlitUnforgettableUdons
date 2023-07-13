@@ -152,7 +152,9 @@ st.subheader("Who are the most common directors in the film industry?")
 df_plot=df['director_name'].value_counts()[0:10].reset_index()
 df_plot.columns=['director_name', 'count']
 
-fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors")
+fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors", labels={
+                     "director_name": "Director Name",
+                     "count": "Count"})
 
 st.plotly_chart(fig)
 
@@ -168,5 +170,20 @@ df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageR
 fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Lowest Rated Movies")
 st.plotly_chart(fig)
 
-st.subheader('')
+st.subheader('Is there a correlation between different numerical values in the data?')
+num_cols=['runtime_minutes','movie_averageRating','movie_numerOfVotes','approval_Index','Production budget $','Domestic gross $','Worldwide gross $','gross_profit']
+
+for col in num_cols:
+    df[col]=df[col].astype(float)
+
+
+corr_matrix=df[num_cols].corr()
+
+fig= px.imshow(corr_matrix)
+
+st.plotly_chart(fig)
+
+
+
+
 st.header('Conclusion')
