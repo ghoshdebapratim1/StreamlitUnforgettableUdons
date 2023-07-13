@@ -6,6 +6,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import io
 import numpy as np 
+from wordcloud import WordCloud, STOPWORDS
 #import matplotlib.pyplot as plt
 #import numpy as np
 #import plotly.figure_factory as ff
@@ -79,6 +80,10 @@ df_plot=df[['movie_title',"profit_prc"]].sort_values(by="profit_prc",ascending=F
 
 fig=px.bar(df_plot,x='movie_title',y="profit_prc",title="Top movies with the highest profit percentage")
 st.plotly_chart(fig)
+
+st.subheader("Which movie has the highest number of votes?")
+fig=px.histogram(df,x='movie_numerOfVotes')
+st.plotly_chart(fig)
 ####################################
 
 
@@ -108,6 +113,12 @@ st.subheader("What are the average ratings of movies?")
 df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
 fig=px.box(df_plot,x='genres',y='movie_averageRating')
 st.plotly_chart(fig)
+
+st.subheader("What is the correlation between the number of votes, average ratings, and approval index?")
+fig = px.scatter_3d(df, x='movie_averageRating', y='approval_Index',         
+z='runtime_minutes', size='approval_Index')
+st.plotly_chart(fig)
+
 ####################################
 
 ## Broderic 
@@ -142,17 +153,43 @@ df_plot=df[['genres','movie_averageRating']].sort_values(by='movie_averageRating
 fig=px.bar(df_plot,x='genres',y='movie_averageRating',title="Lowest Rated genres")
 st.plotly_chart(fig)
 
+st.subheader("WHat percent of the movie industry does each genre take up?")
+df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
+
+result = pd.DataFrame(df_plot.groupby(['genres'])['Worldwide gross $'].sum().sort_values(ascending=True).reset_index())
+
+result.columns = ['genres', 'Total worldwide gross $']
+
+
+result=result[result['genres']!="\\N"]
+
+fig= px.pie(result, values='Total worldwide gross $',names='genres', title=" Worldwide gross by genre")
+st.plotly_chart(fig)
+
+st.subheader("What are Directors' other jobs and their genre?")
+
+df_plot=df.assign(prof=df['director_professions'].str.split(",")).explode('prof')
+
+df_plot=df_plot.assign(genres=df_plot['genres'].str.split(",")).explode('genres')
+
+df_plot=df_plot.groupby(['prof','genres']).size().reset_index()
+
+df_plot.columns=['prof','genres','count']
+
+fig = px.sunburst(df_plot, path=['prof', 'genres'], values='count', color='prof')
+st.plotly_chart(fig)
+
 ####################################
              
 ## Gordon 
 st.subheader("Which movies have the highest gross profit?")
-df_plot=df[['movie_title','gross_profit']].sort_values(by='gross_profit',ascending=False).head(10)
+df_plot=df[['movie_title','gross_profit']].head(50)
 
 result=pd.DataFrame(df_plot.groupby(['movie_title'])['gross_profit'].mean().sort_values(ascending=True).reset_index())
 
 result.columns=['movie_title', 'gross_profit']
 
-fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit', labels={'movie_title': 'Movie Title', 'gross_profit': 'Gross Profit ($)'})
+fig= px.scatter(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit', color="gross_profit",size='gross_profit', hover_data=['movie_title'])
 
 st.plotly_chart(fig)
 
@@ -165,6 +202,7 @@ fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Direc
                      "count": "Count"})
 
 st.plotly_chart(fig)
+
 
 ####################################
 ## You Gang 
@@ -191,8 +229,37 @@ fig= px.imshow(corr_matrix)
 
 st.plotly_chart(fig)
 
-
-
+st.subheader('a wordcloud')
+comment_words = ''
+stopwords = set(STOPWORDS)
+movie_list=df.movie_title.unique().tolist()
+# iterate through the csv file
+for val in movie_list:
+     
+    # typecaste each val to string
+    val = str(val)
+ 
+    # split the value
+    tokens = val.split()
+     
+    # Converts each token into lowercase
+    for i in range(len(tokens)):
+        tokens[i] = tokens[i].lower()
+     
+    comment_words += " ".join(tokens)+" "
+ 
+wordcloud = WordCloud(width = 800, height = 800,
+                background_color ='white',
+                stopwords = stopwords,
+                min_font_size = 10).generate(comment_words)
+ 
+# plot the WordCloud image                      
+plt.figure(figsize = (8, 8), facecolor = None)
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.tight_layout(pad = 0)
+ 
+st.pyplot()
 
 
 st.header('Conclusion')

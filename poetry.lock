@@ -940,6 +940,19 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "wordcloud"
+version = "1.9.2"
+description = "A little word cloud generator"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+matplotlib = "*"
+numpy = ">=1.6.1"
+pillow = "*"
+
+[[package]]
 name = "yapf"
 version = "0.32.0"
 description = "A formatter for Python code."
@@ -974,7 +987,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "f4fe81fa5758d827592d48cde34bcfcb26e54a6577a57a0ca02e3c720498e425"
+content-hash = "76d6d1a220dc35ea763ba5413d778512119b5242a4e0dd93efdf46ef8cd08e6b"
 
 [metadata.files]
 aiohttp = []
@@ -1055,6 +1068,7 @@ validators = []
 watchdog = []
 werkzeug = []
 whatthepatch = []
+wordcloud = []
 yapf = []
 yarl = []
 zipp = []
