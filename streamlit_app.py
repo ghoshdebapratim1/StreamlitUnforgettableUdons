@@ -18,7 +18,7 @@ df = pd.read_csv('movie_statistic_dataset.csv')
 st.title("Snaek Movie Data / Film Findings ")
 
 
-tab1, tab2, tab3,tab4, tab5, tab6 = st.tabs(["Data Cleaning", "Obioma", "Farah","Broderic","Gordon","Yougang"])
+
 ## Section 0
 st.header('Introduction')
 st.write(' Write Somethin here ')
@@ -43,7 +43,7 @@ st.write(df.head())
 # st.write('Step 6: Communicate the results to others')
 
 #Section 1 - Data Inspection and Cleaning
-
+tab1, tab2, tab3,tab4, tab5, tab6 = st.tabs(["Data Cleaning", "Obioma", "Farah","Broderic","Gordon","You Gang"])
 
 with tab1:
   st.header('Section 1 - Data Pre Processing ')
