@@ -75,11 +75,18 @@ st.plotly_chart(fig)
 
 ## Farah 
 st.subheader("Which genre is the most common?")
-split(",",expand=True).stack().value_counts().reset_index())
+
+
+df_plot = pd.DataFrame(df.genres.str.split(",",expand=True).stack().value_counts().reset_index())
 df_plot.columns=['genre','count']
-df_plot
+fig=px.bar(df_plot, x='genre',y='count')
+
+
 st.plotly_chart(fig)
+
+
 st.subheader("Does the date the movie was produced on matter in film success?")
+
 df['gross_profit']=df['Worldwide gross $']+df['Domestic gross $']-df['Production budget $']
 df['production_date']=pd.to_datetime(df['production_date'])
 df['production_month']=df['production_date'].dt.month
