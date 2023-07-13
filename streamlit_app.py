@@ -24,11 +24,11 @@ st.header('Introduction')
 st.write(' Write Somethin here ')
 
 st.write("Team Members: ")
+st.markdown("- Obioma Aguwa")
 st.markdown("- Farah Mohamud ")
+st.markdown("- Broderic Petermann")
 st.markdown("- Gordon Yuan ")
 st.markdown("- You Gang Li")
-st.markdown("- Broderic Petermann")
-st.markdown("- Obioma Aguwa")
 
 st.header('Data Description ')
 st.write('We got our data from  Kaggle')
@@ -72,12 +72,19 @@ with tab2:
   fig= px.bar(result,x='genres',y='average_runtime')
   
   st.plotly_chart(fig)
+  st.write('as you can see from the chart,the movies that tend to longer runtimes are war and history movies, while animation movies have the shortest runtime')
   
   st.subheader("which movie has the biggest average rating?")
+  
+  
+  
   df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageRating',ascending=False).head(10)
   
   fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Highest Rated Movies")
   st.plotly_chart(fig)
+  st.write('the highest rated movie is shown to be shawshank redemption')
+
+
   st.subheader("which movie has the biggest worldwide gross profit percentage ?")
   df['gross_profit']=df['Worldwide gross $']+df['Domestic gross $']-df['Production budget $']
   df["profit_prc"]=df['gross_profit']/df['Production budget $']
@@ -85,10 +92,11 @@ with tab2:
   
   fig=px.bar(df_plot,x='movie_title',y="profit_prc",title="Top movies with the highest profit percentage")
   st.plotly_chart(fig)
-  
+  st.write('the profit percentage was calculated by dividing the gross profit by the production budget')
   st.subheader("Which movie has the highest number of votes?")
   fig=px.histogram(df,x='movie_numerOfVotes')
   st.plotly_chart(fig)
+  st.write('this data was shown using a histogram and it is heavily skewed to the right')
 ####################################
 
 
@@ -103,7 +111,7 @@ with tab3:
   
   
   st.plotly_chart(fig)
-  
+  st.write("The bar graph is in descending order of the most common movie genres.")
   
   st.subheader("Does the date the movie was produced on matter in film success?")
   
@@ -115,22 +123,23 @@ with tab3:
   df_plot=df.groupby(['production_month'])['gross_profit'].mean().reset_index().sort_values(by='production_month') #df_plot=df_plot[df_plot['production_year_month']>='2000-01']
   fig=px.line(df_plot,x='production_month',y='gross_profit')
   st.plotly_chart(fig)
+  st.write("There seems to be a pattern in the months when movies made the highest gross profit, it's because there is more time for people to watch the movies in the theater.") 
   st.subheader("What are the average ratings of movies?")
   df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
   fig=px.box(df_plot,x='genres',y='movie_averageRating')
   st.plotly_chart(fig)
-  
+  st.write("The median for all movies seems to be in the range from 6 to 8.")
   st.subheader("What is the correlation between the number of votes, average ratings, and approval index?")
   fig = px.scatter_3d(df, x='movie_averageRating', y='approval_Index',         
   z='runtime_minutes', size='approval_Index')
   st.plotly_chart(fig)
-
+  st.write("In the 3d plot you can see the overlapping of the three categories, this might be because they all depend on the audience’s opinions.")
 ####################################
 
 ## Broderic 
 
 with tab4:
-  st.subheader("What is if any correlation between a movies rating and worldwide earnings?")
+  st.subheader("What is, if any, correlation between a movies rating and worldwide earnings?")
   
   fig = px.scatter(
       x=df['movie_averageRating'],
@@ -141,7 +150,7 @@ with tab4:
   
   
   st.plotly_chart(fig)
-  
+  st.write("The graph seems to show an upward relationship between a movie's rating and It's worldwide growth")
   st.subheader("What is, if any, the correlations between production budget and worldwide earnings?")
   
   fig = px.scatter(
@@ -153,13 +162,15 @@ with tab4:
   
   
   st.plotly_chart(fig)
+  st.write("The graph dosen't show much correlation between the production budget and worldwide earnings but it does seem that the more money put into the movie the better it perfroms, with some expections.")
   st.subheader("Lowest rated movie genre")
   df_plot=df[['genres','movie_averageRating']].sort_values(by='movie_averageRating',ascending=True).head(10)
   
   fig=px.bar(df_plot,x='genres',y='movie_averageRating',title="Lowest Rated genres")
   st.plotly_chart(fig)
+  st.write('The bar graph shows the lowest rated movie genre, with the lowest rated being, comedy, family and science fiction.')
   
-  st.subheader("WHat percent of the movie industry does each genre take up?")
+  st.subheader("What percent of the movie industry does each genre take up?")
   df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
   
   result = pd.DataFrame(df_plot.groupby(['genres'])['Worldwide gross $'].sum().sort_values(ascending=True).reset_index())
@@ -171,7 +182,7 @@ with tab4:
   
   fig= px.pie(result, values='Total worldwide gross $',names='genres', title=" Worldwide gross by genre")
   st.plotly_chart(fig)
-  
+  st.write("The pie chart makes me hungry, and it shows that the most popular movie genre is action.")
   st.subheader("What are Directors' other jobs and their genre?")
   
   df_plot=df.assign(prof=df['director_professions'].str.split(",")).explode('prof')
@@ -184,11 +195,14 @@ with tab4:
   
   fig = px.sunburst(df_plot, path=['prof', 'genres'], values='count', color='prof')
   st.plotly_chart(fig)
+  st.write("The Sunburst chart is showing that a directors most common job is directing (Whoa) and then it is being a producer.")
+  st.write("The second row of the sunburst chart shows what genre has these extra jobs on the director.")
 
 ####################################
              
 ## Gordon 
 with tab5:
+  st.write("The movies with the biggest profits are often series or related to each other")
   st.subheader("Which movies have the highest gross profit?")
   df_plot=df[['movie_title','gross_profit']].head(50)
   
@@ -196,10 +210,11 @@ with tab5:
   
   result.columns=['movie_title', 'gross_profit']
   
-  fig= px.scatter(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit', color="gross_profit",size='gross_profit', hover_data=['movie_title'])
+  fig= px.scatter(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit', color="gross_profit",size='gross_profit', hover_data=['movie_title'], labels={'movie_title":"Movie Title', 'gross_profit":"Gross Profit'})
   
   st.plotly_chart(fig)
-  
+
+  st.write("There is a big dropoff in films directed around the middle of the chart")
   st.subheader("Who are the most common directors in the film industry?")
   df_plot=df['director_name'].value_counts()[0:10].reset_index()
   df_plot.columns=['director_name', 'count']
@@ -217,8 +232,10 @@ with tab6:
   st.subheader('which movie genre has the most dead directors?')
   fig = px.scatter(x=df['director_deathYear'], y=df['genres'])
   st.plotly_chart(fig)
+  st.write('There seems to be a concentration of dead directors in recent years, and the genres with the most concentration seem to be genres like adventure, action, fantasy, animation, etc.')
   
   st.subheader('what are the lowest rated movies?')
+  st.write('the lowest rated movies all have less than 3 out of 10 ratings.')
   df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageRating',ascending=True).head(10)
   
   fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Lowest Rated Movies")
@@ -236,7 +253,10 @@ with tab6:
   fig= px.imshow(corr_matrix)
   
   st.plotly_chart(fig)
-  
+
+  st.write("This is much more interesting. Although there are many very obvious high and low correlation marks, such such as the high correlation between runtime minutes and, well, runtime minutes, there is a surprisingly low correlation between a movie's average rating and its production budget, and at the same time a movie's average rating has a high correlation with its runtime minutes.")
+
+
 # st.subheader('a wordcloud')
 # comment_words = ''
 # stopwords = set(STOPWORDS)
