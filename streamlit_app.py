@@ -4,9 +4,9 @@ import pandas as pd
 import plotly.express as px
 #import seaborn as sns
 import matplotlib.pyplot as plt
-import io
+#import io
 import numpy as np 
-from wordcloud import WordCloud, STOPWORDS
+#from wordcloud import WordCloud, STOPWORDS
 #import matplotlib.pyplot as plt
 #import numpy as np
 #import plotly.figure_factory as ff
@@ -229,37 +229,37 @@ fig= px.imshow(corr_matrix)
 
 st.plotly_chart(fig)
 
-st.subheader('a wordcloud')
-comment_words = ''
-stopwords = set(STOPWORDS)
-movie_list=df.movie_title.unique().tolist()
-# iterate through the csv file
-for val in movie_list:
+# st.subheader('a wordcloud')
+# comment_words = ''
+# stopwords = set(STOPWORDS)
+# movie_list=df.movie_title.unique().tolist()
+# # iterate through the csv file
+# for val in movie_list:
      
-    # typecaste each val to string
-    val = str(val)
+#     # typecaste each val to string
+#     val = str(val)
  
-    # split the value
-    tokens = val.split()
+#     # split the value
+#     tokens = val.split()
      
-    # Converts each token into lowercase
-    for i in range(len(tokens)):
-        tokens[i] = tokens[i].lower()
+#     # Converts each token into lowercase
+#     for i in range(len(tokens)):
+#         tokens[i] = tokens[i].lower()
      
-    comment_words += " ".join(tokens)+" "
+#     comment_words += " ".join(tokens)+" "
  
-wordcloud = WordCloud(width = 800, height = 800,
-                background_color ='white',
-                stopwords = stopwords,
-                min_font_size = 10).generate(comment_words)
+# wordcloud = WordCloud(width = 800, height = 800,
+#                 background_color ='white',
+#                 stopwords = stopwords,
+#                 min_font_size = 10).generate(comment_words)
  
-# plot the WordCloud image                      
-plt.figure(figsize = (8, 8), facecolor = None)
-plt.imshow(wordcloud)
-plt.axis("off")
-plt.tight_layout(pad = 0)
+# # plot the WordCloud image                      
+# plt.figure(figsize = (8, 8), facecolor = None)
+# plt.imshow(wordcloud)
+# plt.axis("off")
+# plt.tight_layout(pad = 0)
  
-st.pyplot()
+# st.pyplot()
 
 
 st.header('Conclusion')
