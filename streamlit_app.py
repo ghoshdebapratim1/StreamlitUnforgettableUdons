@@ -50,7 +50,7 @@ df.dropna(inplace=True)
 
 
 
-st.header('Section 1 - Questions related to the dataset')
+st.header('Section 2 - Questions related to the dataset')
 
 ## Obioma 
 st.subheader("which types of movie genres usually have a longer runtime? ")
@@ -72,6 +72,10 @@ df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageR
 
 fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Highest Rated Movies")
 st.plotly_chart(fig)
+
+
+####################################
+
 
 ## Farah 
 st.subheader("Which genre is the most common?")
@@ -95,8 +99,13 @@ df['production_year_month']=df['production_year'].astype(str)+"-"+df['production
 df_plot=df.groupby(['production_month'])['gross_profit'].mean().reset_index().sort_values(by='production_month') #df_plot=df_plot[df_plot['production_year_month']>='2000-01']
 fig=px.line(df_plot,x='production_month',y='gross_profit')
 st.plotly_chart(fig)
+st.subheader("What are the average rating of movies?")
+
+
 
 ## Broderic 
+
+
 st.subheader("What is if any correlation between a movies rating and worldwide earnings?")
 
 fig = px.scatter(
@@ -120,7 +129,13 @@ fig = px.scatter(
 
 
 st.plotly_chart(fig)
+st.subheader("Lowest rated movie genre")
+df_plot=df[['genres','movie_averageRating']].sort_values(by='movie_averageRating',ascending=True).head(10)
 
+fig=px.bar(df_plot,x='genres',y='movie_averageRating',title="Lowest Rated genres")
+fig.show()
+
+             
 ## Gordon 
 st.subheader("Which movies have the highest gross profit?")
 df_plot=df[['movie_title','gross_profit']].sort_values(by='gross_profit',ascending=False).head(10)
@@ -129,7 +144,7 @@ result=pd.DataFrame(df_plot.groupby(['movie_title'])['gross_profit'].mean().sort
 
 result.columns=['movie_title', 'gross_profit']
 
-fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit')
+fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit', labels={'x':"Movie Title", 'y':"Gross Profit"})
 
 st.plotly_chart(fig)
 
@@ -137,7 +152,7 @@ st.subheader("Who are the most common directors in the film industry?")
 df_plot=df['director_name'].value_counts()[0:10].reset_index()
 df_plot.columns=['director_name', 'count']
 
-fig=px.line(df_plot, x='director_name', y='count')
+fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors", labels={'x':"Director Name", 'y':"Count"})
 
 st.plotly_chart(fig)
 
@@ -153,5 +168,5 @@ df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageR
 fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Lowest Rated Movies")
 st.plotly_chart(fig)
 
-
+st.subheader('')
 st.header('Conclusion')
