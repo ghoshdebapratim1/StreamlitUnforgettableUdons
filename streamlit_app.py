@@ -26,7 +26,7 @@ st.write("Team Members: ")
 st.markdown("- Farah Mohamud ")
 st.markdown("- Gordon Yuan ")
 st.markdown("- You Gang Li")
-st.markdown("-Broderic Petermann")
+st.markdown("- Broderic Petermann")
 st.markdown("- Obioma Aguwa")
 
 st.header('Data Description ')
@@ -44,9 +44,9 @@ st.write(df.head())
 #Section 1 - Data Inspection and Cleaning
 st.header('Section 1 - Data Pre Processing ')
 
+df.replace('-', np.nan,inplace=True)
 
-
-
+df.dropna(inplace=True)
 
 
 
@@ -54,25 +54,97 @@ st.header('Section 1 - Questions related to the dataset')
 
 ## Obioma 
 st.subheader("which types of movie genres usually have a longer runtime? ")
+df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
+
+result = pd.DataFrame(df_plot.groupby(['genres'])['runtime_minutes'].mean().sort_values(ascending=True).reset_index())
+
+result.columns = ['genres', 'average_runtime']
+
+
+result=result[result['genres']!="\\N"]
+
+fig= px.bar(result,x='genres',y='average_runtime')
+
+st.plotly_chart(fig)
+
 st.subheader("which movie has the biggest average rating?")
+df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageRating',ascending=False).head(10)
+
+fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Highest Rated Movies")
+st.plotly_chart(fig)
 
 ## Farah 
 st.subheader("Which genre is the most common?")
+split(",",expand=True).stack().value_counts().reset_index())
+df_plot.columns=['genre','count']
+df_plot
+st.plotly_chart(fig)
 st.subheader("Does the date the movie was produced on matter in film success?")
+df['gross_profit']=df['Worldwide gross $']+df['Domestic gross $']-df['Production budget $']
+df['production_date']=pd.to_datetime(df['production_date'])
+df['production_month']=df['production_date'].dt.month
+df['production_year']=df['production_date'].dt.year
+df['production_year_month']=df['production_year'].astype(str)+"-"+df['production_month'].astype(str)
+df_plot=df.groupby(['production_month'])['gross_profit'].mean().reset_index().sort_values(by='production_month') #df_plot=df_plot[df_plot['production_year_month']>='2000-01']
+fig=px.line(df_plot,x='production_month',y='gross_profit')
+st.plotly_chart(fig)
 
 ## Broderic 
 st.subheader("What is if any correlation between a movies rating and worldwide earnings?")
+
+fig = px.scatter(
+    x=df['movie_averageRating'],
+    y=df['Worldwide gross $'],
+    title="Movies rating to Money made",
+     labels = {'x':"Average rating",
+              'y':'Worldwide Gross'})
+
+
+st.plotly_chart(fig)
+
 st.subheader("What is, if any, the correlations between production budget and worldwide earnings?")
+
+fig = px.scatter(
+    x=df['Production budget $'],
+    y=df['Worldwide gross $'],
+    title="Movie Money Magic",
+     labels = {'x':"Production budget",
+              'y':'Money made worldwide'})
+
+
+st.plotly_chart(fig)
 
 ## Gordon 
 st.subheader("Which movies have the highest gross profit?")
+df_plot=df[['movie_title','gross_profit']].sort_values(by='gross_profit',ascending=False).head(10)
+
+result=pd.DataFrame(df_plot.groupby(['movie_title'])['gross_profit'].mean().sort_values(ascending=True).reset_index())
+
+result.columns=['movie_title', 'gross_profit']
+
+fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit')
+
+st.plotly_chart(fig)
+
 st.subheader("Who are the most common directors in the film industry?")
+df_plot=df['director_name'].value_counts()[0:10].reset_index()
+df_plot.columns=['director_name', 'count']
+
+fig=px.line(df_plot, x='director_name', y='count')
+
+st.plotly_chart(fig)
 
 
 ## You Gang 
 st.subheader('which movie genre has the most dead directors?')
-st.subheader('what are the lowest rated movies?')
+fig = px.scatter(x=df['director_deathYear'], y=df['genres'])
+st.plotly_chart(fig)
 
+st.subheader('what are the lowest rated movies?')
+df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageRating',ascending=True).head(10)
+
+fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Lowest Rated Movies")
+st.plotly_chart(fig)
 
 
 st.header('Conclusion')
