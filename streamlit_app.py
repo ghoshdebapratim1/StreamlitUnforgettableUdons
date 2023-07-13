@@ -111,7 +111,7 @@ with tab3:
   
   
   st.plotly_chart(fig)
-  st.write("The bar graph is in descending order of the most common movie genres.")
+  st.write("The bar graph is in descending order of the most common movie genres. The most common genre is Drama and the least common is the News.")
   
   st.subheader("Does the date the movie was produced on matter in film success?")
   
@@ -202,7 +202,6 @@ with tab4:
              
 ## Gordon 
 with tab5:
-  st.write("The movies with the biggest profits are often series or related to each other")
   st.subheader("Which movies have the highest gross profit?")
   df_plot=df[['movie_title','gross_profit']].head(50)
   
@@ -214,16 +213,21 @@ with tab5:
   
   st.plotly_chart(fig)
 
-  st.write("There is a big dropoff in films directed around the middle of the chart")
+  st.write("The movies with the biggest profits are often series or related to each other")
+
+
   st.subheader("Who are the most common directors in the film industry?")
   df_plot=df['director_name'].value_counts()[0:10].reset_index()
   df_plot.columns=['director_name', 'count']
   
-  fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors", labels={
+  fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors",   labels={
                        "director_name": "Director Name",
                        "count": "Count"})
   
   st.plotly_chart(fig)
+
+  st.write("There is a big dropoff in films directed around the middle of the chart")
+
   
   
 ####################################
@@ -235,12 +239,14 @@ with tab6:
   st.write('There seems to be a concentration of dead directors in recent years, and the genres with the most concentration seem to be genres like adventure, action, fantasy, animation, etc.')
   
   st.subheader('what are the lowest rated movies?')
-  st.write('the lowest rated movies all have less than 3 out of 10 ratings.')
+
   df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageRating',ascending=True).head(10)
   
   fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Lowest Rated Movies")
   st.plotly_chart(fig)
-  
+
+  st.write('the lowest rated movies all have less than 3 out of 10 ratings.')
+
   st.subheader('Is there a correlation between different numerical values in the data?')
   num_cols=['runtime_minutes','movie_averageRating','movie_numerOfVotes','approval_Index','Production budget $','Domestic gross $','Worldwide gross $','gross_profit']
   
