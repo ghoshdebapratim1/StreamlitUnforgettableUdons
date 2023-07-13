@@ -51,7 +51,7 @@ df.dropna(inplace=True)
 
 
 st.header('Section 2 - Questions related to the dataset')
-
+####################################
 ## Obioma 
 st.subheader("which types of movie genres usually have a longer runtime? ")
 df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
@@ -72,8 +72,13 @@ df_plot=df[['movie_title','movie_averageRating']].sort_values(by='movie_averageR
 
 fig=px.bar(df_plot,x='movie_title',y='movie_averageRating',title="Highest Rated Movies")
 st.plotly_chart(fig)
+st.subheader("which movie has the biggest worldwide gross profit percentage ?")
+df['gross_profit']=df['Worldwide gross $']+df['Domestic gross $']-df['Production budget $']
+df["profit_prc"]=df['gross_profit']/df['Production budget $']
+df_plot=df[['movie_title',"profit_prc"]].sort_values(by="profit_prc",ascending=False).head(10)
 
-
+fig=px.bar(df_plot,x='movie_title',y="profit_prc",title="Top movies with the highest profit percentage")
+st.plotly_chart(fig)
 ####################################
 
 
@@ -99,9 +104,11 @@ df['production_year_month']=df['production_year'].astype(str)+"-"+df['production
 df_plot=df.groupby(['production_month'])['gross_profit'].mean().reset_index().sort_values(by='production_month') #df_plot=df_plot[df_plot['production_year_month']>='2000-01']
 fig=px.line(df_plot,x='production_month',y='gross_profit')
 st.plotly_chart(fig)
-st.subheader("What are the average rating of movies?")
-
-
+st.subheader("What are the average ratings of movies?")
+df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
+fig=px.box(df_plot,x='genres',y='movie_averageRating')
+st.plotly_chart(fig)
+####################################
 
 ## Broderic 
 
@@ -133,8 +140,9 @@ st.subheader("Lowest rated movie genre")
 df_plot=df[['genres','movie_averageRating']].sort_values(by='movie_averageRating',ascending=True).head(10)
 
 fig=px.bar(df_plot,x='genres',y='movie_averageRating',title="Lowest Rated genres")
-fig.show()
+st.plotly_chart(fig)
 
+####################################
              
 ## Gordon 
 st.subheader("Which movies have the highest gross profit?")
@@ -144,7 +152,7 @@ result=pd.DataFrame(df_plot.groupby(['movie_title'])['gross_profit'].mean().sort
 
 result.columns=['movie_title', 'gross_profit']
 
-fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit')
+fig= px.bar(df_plot,x='movie_title',y='gross_profit', title='Best Movies by Gross Profit', labels={'movie_title': 'Movie Title', 'gross_profit': 'Gross Profit ($)'})
 
 st.plotly_chart(fig)
 
@@ -158,7 +166,7 @@ fig=px.line(df_plot, x='director_name', y='count', title="Most Common Film Direc
 
 st.plotly_chart(fig)
 
-
+####################################
 ## You Gang 
 st.subheader('which movie genre has the most dead directors?')
 fig = px.scatter(x=df['director_deathYear'], y=df['genres'])
@@ -182,6 +190,7 @@ corr_matrix=df[num_cols].corr()
 fig= px.imshow(corr_matrix)
 
 st.plotly_chart(fig)
+
 
 
 
