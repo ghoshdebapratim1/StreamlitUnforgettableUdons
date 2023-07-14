@@ -31,7 +31,7 @@ st.markdown("- You Gang Li")
 st.header('Section 1 : Data Description and Data Pre-processing')
 st.write('Our group is taking a dataset from Kaggle, which contains a comprehensive collection of film data with thousands of inputs. It features information on movie titles, production date, genres, runtime, and more.'
         
-'We pre-processed this data by removing missing values')
+'To ensure accuracy of our data, we pre-processed this data by removing missing values')
 
 st.write(df.head())
 # st.subheader('Data Science Workflow')
@@ -105,7 +105,7 @@ with tab1:
   fig = px.histogram(df, x='movie_numerOfVotes')
   st.plotly_chart(fig)
   st.write(
-    'this data was shown using a histogram and it is heavily skewed to the right'
+    'This data was shown using a histogram and it is heavily skewed to the right'
   )
 ####################################
 
@@ -194,7 +194,7 @@ with tab3:
 
   st.plotly_chart(fig)
   st.write(
-    "The graph dosen't show much correlation between the production budget and worldwide earnings but it does seem that the more money put into the movie the better it perfroms, with some expections."
+    "The graph dosen't show much correlation between the production budget and worldwide earnings but it does seem that the more money put into the movie the better it performs, with some expections."
   )
   st.subheader("Lowest rated movie genre")
   df_plot = df[['genres',
@@ -228,7 +228,7 @@ with tab3:
                title=" Worldwide gross by genre")
   st.plotly_chart(fig)
   st.write(
-    "The pie chart makes me hungry, and it shows that the most popular movie genre is action."
+    "The pie chart makes me hungry, and it shows that the most popular movie genres are adventure and action while other genres such as documentaries are barely even visible on the chart."
   )
   st.subheader("What are Directors' other jobs and their genre?")
 
@@ -272,12 +272,19 @@ with tab4:
   st.write("The movies with the biggest profits are often series or related to each other")
   
   st.subheader("Who are the most common directors in the film industry?")
+
   df_plot = df['director_name'].value_counts().head(10).reset_index()
   df_plot.columns = ['director_name', 'count']
-  
+
   fig = px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors", labels={"director_name": "Director Name", "count": "Count"})
-  
+
   st.plotly_chart(fig)
+  # df_plot = df['director_name'].value_counts().head(10).reset_index()
+  # df_plot.columns = ['director_name', 'count']
+  
+  # fig = px.line(df_plot, x='director_name', y='count', title="Most Common Film Directors", labels={"director_name": "Director Name", "count": "Count"})
+  
+  # st.plotly_chart(fig)
   
   st.write(
       "There is a big dropoff in films directed around the middle of the chart")
@@ -303,7 +310,7 @@ with tab4:
 ####################################
 ## You Gang
 with tab5:
-  st.subheader('which movie genre has the most dead directors?')
+  st.subheader('Which movie genre has the most dead directors?')
   fig = px.scatter(x=df['director_deathYear'], y=df['genres'])
   st.plotly_chart(fig)
   st.write(
@@ -322,7 +329,7 @@ with tab5:
                title="Lowest Rated Movies")
   st.plotly_chart(fig)
 
-  st.write('the lowest rated movies all have less than 3 out of 10 ratings.')
+  st.write('The lowest rated movies all have less than 3 out of 10 ratings.')
 
   st.subheader(
     'Is there a correlation between different numerical values in the data?')
@@ -379,4 +386,4 @@ with tab5:
 
 st.header('Conclusion')
 
-st.write("The data was found on kaggle in the Dataset The Ultimate Film Statisics. With the table about movies with details about the various aspects of movies such Movie Titles, Production, Genres, Domestic Gross, etc. Using the information we learned this week about Data Science we made an app by analyzing and exploring trends in the film industry")
+st.write("The data was found on Kaggle in the Dataset The Ultimate Film Statistics. With the table about movies with details about the various aspects of movies such Movie Titles, Production, Genres, Domestic Gross, etc. Using the information we learned this week about Data Science we made an app by analyzing and exploring trends in the film industry to better understand the industry we made Tables, Charts, and Graphs to demonstrate the information we learned about the film industry in a simple way. ")
