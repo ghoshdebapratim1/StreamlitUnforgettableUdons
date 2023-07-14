@@ -30,7 +30,7 @@ st.markdown("- Broderic Petermann")
 st.markdown("- Gordon Yuan ")
 st.markdown("- You Gang Li")
 
-st.header('Data Description ')
+st.header('Section 1 : Data Description and Data Pre-processing')
 st.write('We got our data from  Kaggle')
 
 st.write(df.head())
@@ -43,22 +43,16 @@ st.write(df.head())
 # st.write('Step 6: Communicate the results to others')
 
 #Section 1 - Data Inspection and Cleaning
-tab1, tab2, tab3,tab4, tab5, tab6 = st.tabs(["Data Cleaning", "Obioma", "Farah","Broderic","Gordon","You Gang"])
-
-with tab1:
-  st.header('Section 1 - Data Pre Processing ')
-  
-  df.replace('-', np.nan,inplace=True)
-  
-  df.dropna(inplace=True)
-
-
+tab1, tab2, tab3,tab4, tab5= st.tabs([ "Obioma", "Farah","Broderic","Gordon","You Gang"])
 
 st.header('Section 2 - Questions related to the dataset')
+
+with tab1:
+
 ####################################
 ## Obioma 
 
-with tab2:
+
   st.subheader("which types of movie genres usually have a longer runtime? ")
   df_plot=df.assign(genres=df['genres'].str.split(",")).explode('genres')
   
@@ -101,7 +95,7 @@ with tab2:
 
 
 ## Farah 
-with tab3:
+with tab2:
   st.subheader("Which genre is the most common?")
   
   
@@ -138,7 +132,7 @@ with tab3:
 
 ## Broderic 
 
-with tab4:
+with tab3:
   st.subheader("What is, if any, correlation between a movies rating and worldwide earnings?")
   
   fig = px.scatter(
@@ -201,7 +195,7 @@ with tab4:
 ####################################
              
 ## Gordon 
-with tab5:
+with tab4:
   st.subheader("Which movies have the highest gross profit?")
   df_plot=df[['movie_title','gross_profit']].head(50)
   
@@ -228,11 +222,28 @@ with tab5:
 
   st.write("There is a big dropoff in films directed around the middle of the chart")
 
+st.subheader("What is the average film approval for each production month?")
+
+df['production_date']=pd.to_datetime(df['production_date'])
+
+df['production_month']=df['production_date'].dt.month
+
+df['production_year']=df['production_date'].dt.year
+
+df['production_year_month']=df['production_year'].astype(str)+"-"+df['production_month'].astype(str)
+
+df_plot=df.groupby(['production_month'])['approval_Index'].mean().reset_index().sort_values(by='production_month')
+
+fig=px.line(df_plot,x='production_month',y='approval_Index', title='Production Month and Approval', labels={"approval-Index": "Approval Index", "production_month":"Production Month"})
+
+st.plotly_chart(fig)
+st.write("After August, film approval increases almost linearly" )
+
   
   
 ####################################
 ## You Gang
-with tab6:
+with tab5:
   st.subheader('which movie genre has the most dead directors?')
   fig = px.scatter(x=df['director_deathYear'], y=df['genres'])
   st.plotly_chart(fig)
