@@ -299,33 +299,33 @@ with tab4:
 
   st.write(
     "There is a big dropoff in films directed around the middle of the chart")
-
-st.subheader("What is the average film approval for each production month?")
-
-df['production_date'] = pd.to_datetime(df['production_date'])
-
-df['production_month'] = df['production_date'].dt.month
-
-df['production_year'] = df['production_date'].dt.year
-
-df['production_year_month'] = df['production_year'].astype(
-  str) + "-" + df['production_month'].astype(str)
-
-df_plot = df.groupby([
-  'production_month'
-])['approval_Index'].mean().reset_index().sort_values(by='production_month')
-
-fig = px.line(df_plot,
-              x='production_month',
-              y='approval_Index',
-              title='Production Month and Approval',
-              labels={
-                "approval-Index": "Approval Index",
-                "production_month": "Production Month"
-              })
-
-st.plotly_chart(fig)
-st.write("After August, film approval increases almost linearly")
+  
+  st.subheader("What is the average film approval for each production month?")
+  
+  df['production_date'] = pd.to_datetime(df['production_date'])
+  
+  df['production_month'] = df['production_date'].dt.month
+  
+  df['production_year'] = df['production_date'].dt.year
+  
+  df['production_year_month'] = df['production_year'].astype(
+    str) + "-" + df['production_month'].astype(str)
+  
+  df_plot = df.groupby([
+    'production_month'
+  ])['approval_Index'].mean().reset_index().sort_values(by='production_month')
+  
+  fig = px.line(df_plot,
+                x='production_month',
+                y='approval_Index',
+                title='Production Month and Approval',
+                labels={
+                  "approval-Index": "Approval Index",
+                  "production_month": "Production Month"
+                })
+  
+  st.plotly_chart(fig)
+  st.write("After August, film approval increases almost linearly")
 
 ####################################
 ## You Gang
