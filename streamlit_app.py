@@ -30,7 +30,7 @@ st.markdown("- Gordon Yuan ")
 st.markdown("- You Gang Li")
 
 st.header('Section 1 : Data Description and Data Pre-processing')
-st.write('Our group is taking a dataset from Kaggle, which contains a comprehensive collection of film data with thousands of inputs. It features information on movie titles, production date, genres, runtime, and more. To ensure accuracy of our data, we pre-processed this data by removing missing values')
+st.write('Our group is taking a dataset from Kaggle, which contains a comprehensive collection of film data with thousands of inputs. It features information on movie titles, production dates, genres, runtime, and more. To ensure accuracy of our data, we are pre-processing the data by removing missing values.')
 
 st.write(df.head())
 # st.subheader('Data Science Workflow')
@@ -51,7 +51,7 @@ with tab1:
   ####################################
   ## Obioma
 
-  st.subheader("Which types of movie genres usually have a longer runtime?")
+  st.subheader("Which movie genres usually have a longer runtime?")
   df_plot = df.assign(genres=df['genres'].str.split(",")).explode('genres')
 
   result = pd.DataFrame(
@@ -67,21 +67,21 @@ with tab1:
 
   st.plotly_chart(fig)
   st.write(
-    'As you can see from the chart, the movies that tend to longer runtimes are war and history movies, while animated movies have the shortest runtime'
+    'As you can see from the chart, the movies that tend to have longer runtimes are war and history movies, while animated movies have the shortest runtime. This graph is also mostly uniform, meaning that most movies have around the same amount of runtime'
   )
 
   st.subheader("Which movie has the highest average rating?")
-
+  topmovie = st.slider('Choose the number of movies you want to show', 0, 50, 5)
   df_plot = df[['movie_title',
                 'movie_averageRating']].sort_values(by='movie_averageRating',
-                                                    ascending=False).head(10)
+                                                    ascending=False).head(topmovie)
 
   fig = px.bar(df_plot,
                x='movie_title',
                y='movie_averageRating',
                title="Highest Rated Movies")
   st.plotly_chart(fig)
-  st.write('The highest rated movie is shown to be Shawshank Redemption')
+  st.write('This graph features the Top 10 highest rated movies in this dataset with Shawshank Redemption being the highest rated at 9.3. However, this graph is also uniform, so these top movies have close ratings with The Lord of the Rings having an average rating of 8.8.')
 
   st.subheader(
     "Which movie has the highest worldwide gross profit percentage?")
@@ -95,10 +95,10 @@ with tab1:
   fig = px.bar(df_plot,
                x='movie_title',
                y="profit_prc",
-               title="Top movies with the highest profit percentage")
+               title="Top 10 movies with the highest profit percentage")
   st.plotly_chart(fig)
   st.write(
-    'The profit percentage was calculated by dividing the gross profit by the production budget'
+    'The profit percentage was calculated by dividing the gross profit by the production budget. The highest profit percentage made was by Mad Max with 541.5.'
   )
   st.subheader("Which movie has the highest number of votes?")
   fig = px.histogram(df, x='movie_numerOfVotes')
@@ -119,7 +119,7 @@ with tab2:
 
   st.plotly_chart(fig)
   st.write(
-    "The bar graph is in descending order of the most common movie genres. The most common genre is Drama and the least common is News."
+    "The bar graph is in descending order of the most common movie genres. The most common genre is Drama and the least common is News." 
   )
 
   st.subheader(
@@ -258,6 +258,7 @@ with tab3:
 ## Gordon
 with tab4:
   st.subheader("Which movies have the highest gross profit?")
+  topdirectors=st.slider('Choo')
   df_plot = df[['movie_title', 'gross_profit']].head(50)
   
   result = pd.DataFrame(df_plot.groupby(['movie_title', 'gross_profit']).mean().sort_values('gross_profit', ascending=True).reset_index())
@@ -268,7 +269,7 @@ with tab4:
   
   st.plotly_chart(fig)
   
-  st.write("The movies with the biggest profits are often series or related to each other")
+  st.write("The movies with the biggest profits are often franchises or related to each other. Another thing I noticed was that the 3 most profitable movies were directed by James Cameron.")
   
   st.subheader("Who are the most common directors in the film industry?")
 
@@ -286,7 +287,7 @@ with tab4:
   # st.plotly_chart(fig)
   
   st.write(
-      "There is a big dropoff in films directed around the middle of the chart")
+      "The top 3 directors with the most films are Steven Spielberg, Clint Eastwood, and Ridley Scott.  ")
     
   st.subheader("What is the average film approval for each production month?")
     
@@ -301,7 +302,7 @@ with tab4:
     
   df_plot = df.groupby(['production_month'])['approval_Index'].mean().reset_index().sort_values(by='production_month')
     
-  fig = px.bar(df_plot, x='production_month', y='approval_Index', title='Production Month and Approval', labels={"approval-Index": "Approval Index", "production_month": "Production Month"})
+  fig = px.bar(df_plot, x='production_month', y='approval_Index', title='Production Month and Approval', labels={"approval_Index": "Approval Index", "production_month": "Production Month"})
   
   st.plotly_chart(fig)
   st.write("After August, film approval increases almost constantly")
