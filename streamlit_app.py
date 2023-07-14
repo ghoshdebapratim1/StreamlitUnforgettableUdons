@@ -16,7 +16,7 @@ df = pd.read_csv('movie_statistic_dataset.csv')
 df.replace('-', np.nan,inplace=True)
 df.dropna(inplace=True)
 #Title
-st.title("Snaek Movie Data / Film Findings")
+st.title("Film Findings")
 
 ## Section 0
 st.header('Introduction')
