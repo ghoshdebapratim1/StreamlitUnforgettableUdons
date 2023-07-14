@@ -71,7 +71,7 @@ with tab1:
   )
 
   st.subheader("Which movie has the highest average rating?")
-  topmovie = st.slider('Choose the number of movies you want to show', 0, 50, 5)
+  topmovie = st.slider('Choose the number of movies you want to show', 0, 50, 5,,key="5")
   df_plot = df[['movie_title',
                 'movie_averageRating']].sort_values(by='movie_averageRating',
                                                     ascending=False).head(topmovie)
@@ -81,11 +81,11 @@ with tab1:
                y='movie_averageRating',
                title="Highest Rated Movies")
   st.plotly_chart(fig)
-  st.write('This graph features the Top 10 highest rated movies in this dataset with Shawshank Redemption being the highest rated at 9.3. However, this graph is also uniform, so these top movies have close ratings with The Lord of the Rings having an average rating of 8.8.')
+  st.write('This graph features the Top 10 highest rated movies in this dataset with Shawshank Redemption being the highest rated at 9.3. This graph is also uniform.')
 
   st.subheader(
     "Which movie has the highest worldwide gross profit percentage?")
-  topmovie = st.slider('Choose the number of movies you want to show', 0, 50, 5)
+  topmovie = st.slider('Choose the number of movies you want to show', 0, 50, 5,,key="6")
   df['gross_profit'] = df['Worldwide gross $'] + df['Domestic gross $'] - df[
     'Production budget $']
   df["profit_prc"] = df['gross_profit'] / df['Production budget $']
@@ -197,7 +197,7 @@ with tab3:
     "The graph dosen't show much correlation between the production budget and worldwide earnings but it does seem that the more money put into the movie the better it performs, with some expections."
   )
   st.subheader("Lowest rated movie genre")
-  lowmovie = st.slider('Choose the number of movies you want to show', 0, 50, 5)
+  lowmovie = st.slider('Choose the number of movies you want to show', 0, 50, 5,key="1")
   df_plot = df[['genres',
                 'movie_averageRating']].sort_values(by='movie_averageRating',
                                                     ascending=True).head(lowmovie)
@@ -260,7 +260,7 @@ with tab3:
 ## Gordon
 with tab4:
   st.subheader("Which movies have the highest gross profit?")
-  movieprofit=st.slider('Choose the number of movies you want to show', 0, 50, 5)
+  movieprofit=st.slider('Choose the number of movies you want to show', 0, 50, 5,,key="2")
   df_plot = df[['movie_title', 'gross_profit']].head(movieprofit)
   
   result = pd.DataFrame(df_plot.groupby(['movie_title', 'gross_profit']).mean().sort_values('gross_profit', ascending=True).reset_index())
@@ -274,7 +274,7 @@ with tab4:
   st.write("The movies with the biggest profits are often franchises or related to each other. Another thing I noticed was that the 3 most profitable movies were directed by James Cameron.")
   
   st.subheader("Who are the most common directors in the film industry?")
-  directors=st.slider('Choose the number of directors you want to show', 0, 10, 5)
+  directors=st.slider('Choose the number of directors you want to show', 0, 10, 5,,key="3")
 
   
   df_plot = df['director_name'].value_counts().head(directors).reset_index()
@@ -322,7 +322,7 @@ with tab5:
   )
 
   st.subheader('What are the lowest rated movies?')
-  movies=st.slider('Choose the number of movies you want to show', 0, 20, 5)
+  movies=st.slider('Choose the number of movies you want to show', 0, 20, 5,,key="4")
   df_plot = df[['movie_title',
                 'movie_averageRating']].sort_values(by='movie_averageRating',
                                                     ascending=True).head(movies)
