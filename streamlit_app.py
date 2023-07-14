@@ -13,13 +13,14 @@ from wordcloud import WordCloud, STOPWORDS
 
 #look for more information here https://docs.streamlit.io/library/cheatsheet
 df = pd.read_csv('movie_statistic_dataset.csv')
-
+df.replace('-', np.nan,inplace=True)
+df.dropna(inplace=True)
 #Title
-st.title("Snaek Movie Data / Film Findings ")
+st.title("Snaek Movie Data / Film Findings")
 
 ## Section 0
 st.header('Introduction')
-st.write(' We have spent the last 5 days learning about data science and python. We have made a dashboard around a datset about movies, and we have several graphs to show, so sit back and enjoy the show. ')
+st.write(' We have spent the last 5 days learning about data science and python. We have made a dashboard around a dataset about movies, and we have several graphs to show, so sit back and enjoy the show.')
 
 st.write("Team Members: ")
 st.markdown("- Obioma Aguwa")
@@ -29,9 +30,7 @@ st.markdown("- Gordon Yuan ")
 st.markdown("- You Gang Li")
 
 st.header('Section 1 : Data Description and Data Pre-processing')
-st.write('Our group is taking a dataset from Kaggle, which contains a comprehensive collection of film data with thousands of inputs. It features information on movie titles, production date, genres, runtime, and more.'
-        
-'To ensure accuracy of our data, we pre-processed this data by removing missing values')
+st.write('Our group is taking a dataset from Kaggle, which contains a comprehensive collection of film data with thousands of inputs. It features information on movie titles, production date, genres, runtime, and more. To ensure accuracy of our data, we pre-processed this data by removing missing values')
 
 st.write(df.head())
 # st.subheader('Data Science Workflow')
